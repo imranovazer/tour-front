@@ -11,36 +11,39 @@ import { setIsAuth } from "../../redux/reducers/userSlice";
 import useLoading from "../../hooks/useLoading";
 
 type FieldType = {
+  name?: string;
   email?: string;
   password?: string;
+  passwordConfirm?: string;
 };
-function Login() {
-  const [loginRequest, isLoadingLoginRequest] = useLoading({
+function Register() {
+  const onFinishFailed = (errorInfo: any) => {
+    dispatch(displayAlert({ type: false, title: "Please fill all data" }));
+  };
+
+  const [registerRequest, isReqisterRequstLoading] = useLoading({
     callback: async (values: any) => {
-      await await axiosInstance.post("/users/login", values);
+      await axiosInstance.post("/users/signup", values);
       dispatch(
-        displayAlert({ type: true, title: "You logged in successfully" })
+        displayAlert({ type: true, title: "You registered successfully" })
       );
       dispatch(setIsAuth(true));
     },
     onError: () => {
-      dispatch(displayAlert({ type: false, title: "Unable to login" }));
+      dispatch(displayAlert({ type: false, title: "Unable to register" }));
     },
   });
-  const onFinishFailed = (errorInfo: any) => {
-    dispatch(displayAlert({ type: false, title: "Please fill all data" }));
-  };
+
   const dispatch = useAppDispatch();
-  const onFinish = (values: any) => {
-    loginRequest(values);
+  const onFinish = async (values: any) => {
+    registerRequest(values);
   };
 
   return (
     <div className="w-full min-h-screen  bg-slate-200  dark:bg-slate-700">
       <div className="container flex justify-center items-center min-h-screen mx-auto px-3">
         <div className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center ">
-          <div className="hidden clipLog w-1/2 bg-[url('./src/assets/Register.jpg')] dark:bg-[url('./src/assets/RegisterDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
-          <div className="flex md:w-1/2 w-full    p-6 flex-col   gap-12">
+          <div className="flex md:w-1/2 w-full    p-6 flex-col justify-between  ">
             <div className="w-full flex justify-between items-center">
               <Logo />
               <Link to="/" className="font-bold text-gray-400">
@@ -49,15 +52,16 @@ function Login() {
             </div>
             <div className="flex flex-col gap-5  pb-4 ">
               <span className="uppercase font-bold text-gray-400">
-                Continue where you left{" "}
+                Start for free{" "}
               </span>
               <h1 className="font-bold text-4xl dark:text-white">
-                Sign in please <span className="text-sky-500 text-5xl">.</span>
+                Create new account{" "}
+                <span className="text-sky-500 text-5xl">.</span>
               </h1>
               <span className="  text-gray-400">
-                Don't have an account?{" "}
-                <Link className="text-sky-500" to="/register">
-                  Register
+                Already a member?{" "}
+                <Link className="text-sky-500" to="/login">
+                  Login
                 </Link>{" "}
               </span>
               <Form
@@ -70,6 +74,18 @@ function Login() {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
               >
+                <Form.Item<FieldType> // label="Username"
+                  name="name"
+                  rules={[
+                    { required: true, message: "Please input your username!" },
+                  ]}
+                >
+                  <Input
+                    size="large"
+                    placeholder="username"
+                    className="dark:bg-slate-700 dark:text-white dark:placeholder-slate-300"
+                  />
+                </Form.Item>
                 <Form.Item<FieldType> // label="Username"
                   name="email"
                   rules={[
@@ -99,26 +115,33 @@ function Login() {
                     autoComplete="false"
                   />
                 </Form.Item>
-                <Form.Item<FieldType>>
-                  <span className="dark:text-white ">
-                    Forgot password?{" "}
-                    <Link to="/forgot-password" className="text-sky-500">
-                      Restore
-                    </Link>
-                  </span>
-                </Form.Item>
-                <Form.Item<FieldType>>
-                  <AuthButton
-                    title={isLoadingLoginRequest ? "Processing..." : "Login"}
+                <Form.Item<FieldType>
+                  // label="Password"
+                  name="passwordConfirm"
+                  rules={[
+                    { required: true, message: "Please input your password!" },
+                  ]}
+                >
+                  <Input.Password
+                    size="large"
+                    placeholder="confirm password"
+                    className="password-input"
                   />
                 </Form.Item>
+
+                <AuthButton
+                  title={
+                    isReqisterRequstLoading ? "Processing..." : "Create account"
+                  }
+                />
               </Form>
             </div>
           </div>
+          <div className="hidden clipReg w-1/2 bg-[url('./src/assets/Login.jpg')] dark:bg-[url('./src/assets/LoginDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/index.scss";
+
 import Logo from "../../components/ui/Logo";
 import { Link } from "react-router-dom";
 import { Form, Input } from "antd";
@@ -12,19 +12,22 @@ import useLoading from "../../hooks/useLoading";
 
 type FieldType = {
   email?: string;
-  password?: string;
 };
-function Login() {
+function ForgotPass() {
   const [loginRequest, isLoadingLoginRequest] = useLoading({
     callback: async (values: any) => {
-      await await axiosInstance.post("/users/login", values);
+      await await axiosInstance.post("/users/forgot-password", values);
       dispatch(
-        displayAlert({ type: true, title: "You logged in successfully" })
+        displayAlert({
+          type: true,
+          title: "Link to reset password sent to your email",
+        })
       );
-      dispatch(setIsAuth(true));
     },
     onError: () => {
-      dispatch(displayAlert({ type: false, title: "Unable to login" }));
+      dispatch(
+        displayAlert({ type: false, title: "Unable to sent email try later" })
+      );
     },
   });
   const onFinishFailed = (errorInfo: any) => {
@@ -48,18 +51,14 @@ function Login() {
               </Link>
             </div>
             <div className="flex flex-col gap-5  pb-4 ">
-              <span className="uppercase font-bold text-gray-400">
-                Continue where you left{" "}
-              </span>
               <h1 className="font-bold text-4xl dark:text-white">
-                Sign in please <span className="text-sky-500 text-5xl">.</span>
+                Restore your password{" "}
+                <span className="text-sky-500 text-5xl">.</span>
               </h1>
-              <span className="  text-gray-400">
-                Don't have an account?{" "}
-                <Link className="text-sky-500" to="/register">
-                  Register
-                </Link>{" "}
-              </span>
+              <p className="dark:text-white">
+                Enter the email associated with your acoount and we'll send you
+                a link to reset your password
+              </p>
               <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -85,31 +84,17 @@ function Login() {
                   />
                 </Form.Item>
 
-                <Form.Item<FieldType>
-                  // label="Password"
-                  name="password"
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                  ]}
-                >
-                  <Input.Password
-                    size="large"
-                    className="password-input"
-                    placeholder="password"
-                    autoComplete="false"
-                  />
-                </Form.Item>
                 <Form.Item<FieldType>>
                   <span className="dark:text-white ">
-                    Forgot password?{" "}
-                    <Link to="/forgot-password" className="text-sky-500">
-                      Restore
+                    Have an account?{" "}
+                    <Link to="/login" className="text-sky-500">
+                      Log in
                     </Link>
                   </span>
                 </Form.Item>
                 <Form.Item<FieldType>>
                   <AuthButton
-                    title={isLoadingLoginRequest ? "Processing..." : "Login"}
+                    title={isLoadingLoginRequest ? "Processing..." : "Send"}
                   />
                 </Form.Item>
               </Form>
@@ -121,4 +106,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPass;
