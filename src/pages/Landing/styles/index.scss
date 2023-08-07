@@ -1,0 +1,21 @@
+.TopTourSection {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(81, 231, 239, 0.8),
+      rgba(54, 155, 227, 0.8)
+    ),
+    url(../../../assets/SectionCover.jpg);
+  background-size: cover;
+  transform: skewY(-7deg);
+  .container {
+    transform: skewY(7deg);
+  }
+}
+.clipTourSlide {
+  clip-path: polygon(10% 100%, 100% 100%, 100% 0, 43% 0);
+}
+
+//top  lighten
+//bottom darker
+//  rgba(126, 213, 111, 0.8),
+//       rgba(40, 180, 133, 0.8)

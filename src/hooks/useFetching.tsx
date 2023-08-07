@@ -1,17 +1,18 @@
 import { useState } from "react";
 import useLoading from "./useLoading";
 
-const useFetching = (callback:any) => {
-  const [error, setError] = useState(null);
+type CallbackFunction = () => Promise<any>;
+
+const useFetching = (callback: CallbackFunction) => {
+  const [error, setError] = useState<Error | null>(null);
   const [applyLoading, loading] = useLoading({
     callback,
-    onError: (error:any) => {
+    onError: (error: Error) => {
       setError(error);
     },
   });
 
-  return [applyLoading, loading, error];
+  return [applyLoading, loading, error] as const;
 };
 
 export default useFetching;
-

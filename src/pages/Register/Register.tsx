@@ -137,7 +137,7 @@ function Register() {
               </Form>
             </div>
           </div>
-          <div className="hidden clipReg w-1/2 bg-[url('./src/assets/Login.jpg')] dark:bg-[url('./src/assets/LoginDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
+          <div className="hidden clipReg w-1/2 bg-[url('/src/assets/Login.jpg')] dark:bg-[url('/src/assets/LoginDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
         </div>
       </div>
     </div>

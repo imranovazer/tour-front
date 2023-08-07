@@ -6,7 +6,7 @@ const useLoading = (
     onError,
   }: { callback: (data: any) => Promise<void>; onError: (error: any) => void },
   defaultLoading = false
-): [(data: any) => void, boolean] => {
+): [(data: any | undefined) => void, boolean] => {
   const [loading, setLoading] = useState<boolean>(defaultLoading);
 
   const applyLoading = async (data: any) => {

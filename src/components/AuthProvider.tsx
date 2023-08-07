@@ -1,29 +1,42 @@
 import React, { useState, useEffect, ReactNode } from "react";
 
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks";
-import { setILoading, setIsAuth } from "../redux/reducers/userSlice";
+import { setILoading, setIsAuth, setUser } from "../redux/reducers/userSlice";
 import axios from "axios";
+import Loading from "./Loading";
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const isAuth = useAppSelector(state => state.user.isAuth); 
-  const loading = useAppSelector(state=> state.user.loading)
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const loading = useAppSelector((state) => state.user.loading);
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate(); 
+  // const navigate = useNavigate();
   useEffect(() => {
     const verify = async () => {
       try {
-        const res = await axios.post("http://localhost:3000/api/users/echo", {}, { withCredentials: true });
+        const res = await axios.post(
+          "http://localhost:3000/api/users/echo",
+          {},
+          { withCredentials: true }
+        );
+        // console.log(res.data.data);
+        dispatch(setUser(res.data.data));
         dispatch(setIsAuth(true));
+
         dispatch(setILoading(false));
+
         return res.data.data;
-      } catch (error:any) {
+      } catch (error: any) {
         if (error.response && error.response.status === 401) {
           try {
-            const refreshTokenResponse = await axios.post("http://localhost:3000/api/users/refresh-token", {}, { withCredentials: true });
+            const refreshTokenResponse = await axios.post(
+              "http://localhost:3000/api/users/refresh-token",
+              {},
+              { withCredentials: true }
+            );
             // Assuming your refresh-token endpoint returns a new access token in 'refreshTokenResponse.data.accessToken'
             // Set the new access token in the request headers for future requests
             dispatch(setIsAuth(true));
@@ -44,7 +57,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     verify();
   }, []);
   // return <>{loading ? isAuth ? <div>Loading...</div> : children : children}</>;
-  return <>{loading? <h1>Loading...</h1> : children}</>;
+  return <>{loading ? <Loading/> : children}</>;
 }
 
 export default AuthProvider;

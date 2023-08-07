@@ -42,7 +42,7 @@ function ForgotPass() {
     <div className="w-full min-h-screen  bg-slate-200  dark:bg-slate-700">
       <div className="container flex justify-center items-center min-h-screen mx-auto px-3">
         <div className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center ">
-          <div className="hidden clipLog w-1/2 bg-[url('./src/assets/Register.jpg')] dark:bg-[url('./src/assets/RegisterDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
+          <div className="hidden clipLog w-1/2 bg-[url('/src/assets/Register.jpg')] dark:bg-[url('/src/assets/RegisterDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
           <div className="flex md:w-1/2 w-full    p-6 flex-col   gap-12">
             <div className="w-full flex justify-between items-center">
               <Logo />
