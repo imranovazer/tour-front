@@ -1,0 +1,13 @@
+.sett-side {
+  @apply flex flex-col gap-4 transition-all;
+  li {
+    @apply flex items-center gap-3 cursor-pointer;
+    //@apply bg-slate-600  rounded-lg flex justify-center transition-all cursor-pointer;
+    div {
+      @apply h-10 bg-sky-500 transition-all;
+    }
+    // &:hover {
+    //   @apply bg-slate-800;
+    // }
+  }
+}

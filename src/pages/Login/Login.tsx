@@ -25,8 +25,10 @@ function Login() {
       dispatch(setUser(user.data.data.user));
       dispatch(setIsAuth(true));
     },
-    onError: () => {
-      dispatch(displayAlert({ type: false, title: "Unable to login" }));
+    onError: (error) => {
+      dispatch(
+        displayAlert({ type: false, title: error.response.data.message })
+      );
     },
   });
   const onFinishFailed = (errorInfo: any) => {

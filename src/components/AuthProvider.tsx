@@ -39,7 +39,11 @@ function AuthProvider({ children }: AuthProviderProps) {
             );
             // Assuming your refresh-token endpoint returns a new access token in 'refreshTokenResponse.data.accessToken'
             // Set the new access token in the request headers for future requests
+
+            dispatch(setUser(refreshTokenResponse.data.data.user));
+
             dispatch(setIsAuth(true));
+
             dispatch(setILoading(false));
           } catch (refreshError) {
             // If token refresh fails or there's another error, logout the user
@@ -57,7 +61,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     verify();
   }, []);
   // return <>{loading ? isAuth ? <div>Loading...</div> : children : children}</>;
-  return <>{loading ? <Loading/> : children}</>;
+  return <>{loading ? <Loading /> : children}</>;
 }
 
 export default AuthProvider;

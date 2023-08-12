@@ -7,6 +7,13 @@ const LandingPageApi = {
       return res.data;
     } catch (error) {}
   },
+  sendEmail: async (data: {
+    content: String | undefined;
+    from: String | undefined;
+  }) => {
+    const res = await axiosInstance.post("/users/mail", data);
+    return res.data;
+  },
 };
 
 export default LandingPageApi;

@@ -1,0 +1,11 @@
+.short-inf {
+  li {
+    @apply flex  gap-2 items-center;
+    .thin-text {
+      @apply font-thin;
+    }
+    .bold-text {
+      @apply font-bold;
+    }
+  }
+}

@@ -21,7 +21,7 @@ function MyAlert({ type, title }: MyAlertProps) {
 
   return (
     <Alert
-      className="Alert fixed top-3 right-3 min-w-[250px] "
+      className="Alert fixed top-3 right-3 min-w-[250px]  z-50"
       message={type ? "Success" : "Error"}
       description={title}
       type={type ? "success" : "error"}

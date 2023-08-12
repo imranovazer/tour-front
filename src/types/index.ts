@@ -1,11 +1,21 @@
 export interface Location {
   type: String;
-  coordinates: Number[];
+  coordinates: number[];
   address: String;
   description: String;
-  day: Number;
+  day?: Number;
+}
+
+export interface Review {
+  id: string;
+  rating: number;
+  review: string;
+  user: User;
+  
 }
 export interface Tour {
+  reviews: Review[];
+  maxGroupSize: Number;
   id: String;
   imageCover: String;
   difficulty: String;
@@ -15,7 +25,11 @@ export interface Tour {
   ratingsAverage: Number;
   summary: String;
   duration: Number;
+  startDates: Date[];
+  images: string[];
   startLocation: Location;
+  locations: Location[];
+  description?: String;
 }
 export interface User {
   email: String;

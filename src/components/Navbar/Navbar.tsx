@@ -41,7 +41,7 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   return (
-    <div className="fixed top-6 w-full z-50">
+    <div className="fixed top-6 w-full z-40 ">
       <div className="container  mx-auto px-3 ">
         <div
           className={`relative h-14 max-w-[1300px] justify-between mx-auto rounded-[50px] flex items-center px-4   transition-all  ${
@@ -95,7 +95,7 @@ function Navbar() {
                   </div>
                   <div className="flex  px-2  gap-4 dark:text-white  flex-col  p-2">
                     <p className="text-sm font-bold">AnywherePay</p>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
                       <p className="text-[20px] ">
                         <LiaWalletSolid />
                       </p>
@@ -104,7 +104,12 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-              <li>
+              <li
+                onClick={() => {
+                  navigate("/settings");
+                  setDropdown(false);
+                }}
+              >
                 <TbSettings2 /> <p>Settings</p>
               </li>
               <li onClick={handleLogout}>
