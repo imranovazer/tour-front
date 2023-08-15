@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import TourApi from "./api";
 import Loading from "../../components/Loading";
 import useFetching from "../../hooks/useFetching";
-import { Location, Tour } from "../../types";
+import { Location, Review, Tour, User } from "../../types";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
+import { WebMercatorViewport } from "viewport-mercator-project";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { IoLocationSharp } from "react-icons/io5";
 import { BsClock, BsFire, BsPerson } from "react-icons/bs";
@@ -21,8 +22,12 @@ import useLoading from "../../hooks/useLoading";
 import { displayAlert } from "../../redux/reducers/alertSlice";
 import MyModal from "../../components/Modal/MyModal";
 import { Rate } from "antd";
+import { setUser } from "../../redux/reducers/userSlice";
 
 const OneTour = () => {
+  const user = useAppSelector((state) => state.user.user);
+  const [isReviewed, setIsReviewed] = useState<string | null>();
+
   const [modal, setModal] = useState(false);
   const theme = useAppSelector((state) => state.theme.theme);
   const dispatch = useAppDispatch();
@@ -31,11 +36,22 @@ const OneTour = () => {
   const [myRate, setMyRate] = useState(0);
   const { id } = useParams();
   const [tour, setTour] = useState<Tour>();
-  console.log(tour);
+
   const [viewport, setViewPort] = useState({
     longitude: 77.216,
     latitude: 28.6448,
     zoom: 6,
+  });
+
+  const [addToCart, loadingCart] = useLoading({
+    callback: async (id) => {
+      const res = await TourApi.addToCart(id);
+      dispatch(setUser(res.data));
+      dispatch(displayAlert({ type: true, title: "Item added to cart!" }));
+    },
+    onError: () => {
+      displayAlert({ type: false, title: "Unable add to cart" });
+    },
   });
 
   const [reviewTour, loadingReview] = useLoading({
@@ -55,6 +71,22 @@ const OneTour = () => {
       displayAlert({ type: false, title: "Unable to post review" });
     },
   });
+  const [editRevire, edtiLoading] = useLoading({
+    callback: async (id) => {
+      const res = await TourApi.updateReview(id, {
+        review: myReview,
+        rating: myRate,
+      });
+      getTour(null);
+      dispatch(
+        displayAlert({ type: true, title: "Your review edited successfully!" })
+      );
+      setModal(false);
+    },
+    onError: () => {
+      displayAlert({ type: false, title: "Unable to edit review" });
+    },
+  });
 
   const [getTour, getIsLoading] = useFetching(async () => {
     const res = await TourApi.getTour(id);
@@ -71,6 +103,14 @@ const OneTour = () => {
       latitude: finLatitude / res.data.locations.length,
       longitude: finLongitude / res.data.locations.length,
     });
+
+    const foundReview = res.data.reviews.find(
+      (item: Review) => item.user._id == user._id
+    );
+
+    foundReview ? setIsReviewed(foundReview._id) : setIsReviewed(null);
+    setMyRate(foundReview.rating);
+    setMyReview(foundReview.review);
   });
   useEffect(() => {
     getTour(null);
@@ -98,9 +138,17 @@ const OneTour = () => {
           <p className="flex gap-1 text-[23px] items-center ">
             <IoLocationOutline />{" "}
             <span className="text-[21px]">
-              {tour?.startLocation.description} days
+              {tour?.startLocation.description}
             </span>
           </p>
+          <div className="flex justify-end  mt-[30px]">
+            <button
+              onClick={() => addToCart(id)}
+              className="bg-blue-600 rounded-[30px] py-1 px-3"
+            >
+              {loadingCart ? "processing..." : "Add to cart"}
+            </button>
+          </div>
         </div>
       </header>
       <section className="bg-gradient-to-r text-black dark:text-white from-white to-slate-300 dark:from-slate-600 dark:to-slate-900 ">
@@ -145,9 +193,9 @@ const OneTour = () => {
       </section>
 
       <section className="w-full h-[400px]">
-        <ReactMapGl
+        {/* <ReactMapGl
           {...viewport}
-          //onDrag={({ viewState }) => setViewPort(viewState)}
+          onMove={({ viewState }) => setViewPort(viewState)}
           mapboxAccessToken={import.meta.env.VITE_MAP_BOX}
           mapStyle={
             theme == "dark"
@@ -184,7 +232,7 @@ const OneTour = () => {
               <p className="text-black">{popUp.description}</p>
             </Popup>
           ) : null}
-        </ReactMapGl>
+        </ReactMapGl> */}
       </section>
       <section className="bg-gradient-to-r from-blue-600">
         <div className="container mx-auto px-5 py-16">
@@ -195,7 +243,7 @@ const OneTour = () => {
               onClick={() => setModal(true)}
               className="w-[150px] bg-white shadow-xl font-bold dark:bg-slate-900 dark:hover:bg-slate-950 dark:text-white  hover:bg-slate-200 transition-all text-sky-600 py-2 px-3 rounded-[30px]"
             >
-              Review
+              {isReviewed ? "Edit my review" : "Review"}
             </button>
           </div>
         </div>
@@ -208,11 +256,12 @@ const OneTour = () => {
             <Rate
               className="text-sky-600"
               allowHalf
-              defaultValue={0}
+              defaultValue={myRate}
               onChange={(e) => setMyRate(e)}
             />
 
             <textarea
+              value={myReview}
               id="message"
               rows={4}
               onChange={(e) => setMyReview(e.target.value)}
@@ -220,10 +269,18 @@ const OneTour = () => {
               placeholder="Write your thoughts here..."
             ></textarea>
             <button
-              onClick={() => reviewTour(id)}
+              onClick={() => {
+                isReviewed ? editRevire(isReviewed) : reviewTour(id);
+              }}
               className="w-[150px] bg-blue-600 shadow-xl font-bold  text-white  hover:bg-blue-700 transition-all  py-2 px-3 rounded-[30px]"
             >
-              {loadingReview ? "processing..." : "Post"}
+              {isReviewed
+                ? edtiLoading
+                  ? "processing..."
+                  : "Edit"
+                : loadingReview
+                ? "processing..."
+                : "Post"}
             </button>
           </div>
         </MyModal>

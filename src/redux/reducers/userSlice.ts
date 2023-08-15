@@ -1,21 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
+import { User } from "../../types";
 
 // Define a type for the slice state
-
-interface UserType {
-  email: String;
-  name: String;
-  photo: String;
-  role: String;
-  _id: String;
-  wallet?: Number;
-}
 
 export interface UserState {
   isAuth: boolean;
   loading: boolean;
-  user: UserType;
+  user: User;
 }
 
 // Define the initial state using that type
@@ -28,6 +20,7 @@ const initialState: UserState = {
     photo: "",
     role: "",
     _id: "",
+    cart: [],
   },
 };
 
@@ -42,7 +35,7 @@ export const userSlice = createSlice({
     setILoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setUser: (state, action: PayloadAction<UserType>) => {
+    setUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
     logoutUser: (state) => {

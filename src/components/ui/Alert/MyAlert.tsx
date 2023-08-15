@@ -16,7 +16,7 @@ function MyAlert({ type, title }: MyAlertProps) {
       dispatch(closeAlert());
 
       return () => clearTimeout(timeout);
-    }, 5000);
+    }, 1000);
   }, []);
 
   return (

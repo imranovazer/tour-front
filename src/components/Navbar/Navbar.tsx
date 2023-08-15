@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Logo from "../ui/Logo";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./styles/Navbar.scss";
@@ -8,6 +8,8 @@ import { LiaWalletSolid } from "react-icons/lia";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import NavbarApi from "./api";
 import { logoutUser } from "../../redux/reducers/userSlice";
+import { BiSolidCart } from "react-icons/bi";
+import { Badge } from "antd";
 // const scrolled =
 //   "bg-white  h-14 max-w-[1300px] mx-auto rounded-[50px] flex items-center px-5 dark:bg-slate-950 shadow-xl transition-all";
 // const notscrolled =
@@ -20,7 +22,7 @@ function Navbar() {
       dispatch(logoutUser());
     } catch (error) {}
   };
-  const dropdownRef = useRef();
+  const dropdownRef = useRef<HTMLInputElement>(null);
   useOutsideAlerter(dropdownRef, () => setDropdown(false));
   const user = useAppSelector((state) => state.user.user);
 
@@ -62,16 +64,26 @@ function Navbar() {
             </li>
           </ul>
 
-          <div
-            onClick={() => setDropdown((prevState) => !prevState)}
-            className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden cursor-pointer flex items-center justify-center relative"
-          >
-            {user.photo && (
-              <img
-                src={`${import.meta.env.VITE_USER_IMG_URL}${user.photo}`}
-                alt="ava"
-              />
-            )}
+          <div className="flex items-center gap-5 ">
+            <Badge count={user.cart?.length} size="small">
+              <div
+                className="w-10 h-10 flex justify-center cursor-pointer items-center text-[20px]  dark:text-white text-sky-600 border-2 rounded-full"
+                onClick={() => navigate("/cart")}
+              >
+                <BiSolidCart />
+              </div>
+            </Badge>
+            <div
+              onClick={() => setDropdown((prevState) => !prevState)}
+              className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden cursor-pointer flex items-center justify-center relative"
+            >
+              {user.photo && (
+                <img
+                  src={`${import.meta.env.VITE_USER_IMG_URL}${user.photo}`}
+                  alt="ava"
+                />
+              )}
+            </div>
           </div>
           {dropDown && (
             <ul

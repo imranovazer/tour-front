@@ -18,10 +18,22 @@ export default function MySwiper({ slides }: { slides: Review[] | undefined }) {
   return (
     <>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={1}
         spaceBetween={30}
-        navigation={true}
         loop={true}
+        navigation={false}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 40,
+            navigation: true,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+            navigation: true,
+          },
+        }}
         pagination={{
           // clickable: true,
           dynamicBullets: true,

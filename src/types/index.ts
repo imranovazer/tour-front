@@ -11,20 +11,19 @@ export interface Review {
   rating: number;
   review: string;
   user: User;
-  
 }
 export interface Tour {
   reviews: Review[];
-  maxGroupSize: Number;
+  maxGroupSize: number;
   id: String;
   imageCover: String;
   difficulty: String;
   durationWeeks: Number;
   name: String;
-  price: Number;
-  ratingsAverage: Number;
+  price: number;
+  ratingsAverage: number;
   summary: String;
-  duration: Number;
+  duration: number;
   startDates: Date[];
   images: string[];
   startLocation: Location;
@@ -38,4 +37,10 @@ export interface User {
   role: String;
   _id: String;
   wallet?: Number;
+  cart?: Cart[];
+}
+
+export interface Cart {
+  count: number;
+  product: Tour;
 }

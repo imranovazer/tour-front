@@ -17,6 +17,7 @@ import MyReviews from "./pages/MyReviews/MyReviews";
 import PurchasedTours from "./pages/PurchasedTours/PurchasedTours";
 import Payment from "./pages/Payment/Payment";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess";
+import Cart from "./pages/Cart/Cart";
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
 
@@ -42,6 +43,7 @@ function App() {
       <Route element={<ProtectedRoute shouldAuth={true} />}>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/tours/:id" element={<Tour />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
