@@ -6,6 +6,10 @@ const CartApi = {
     const res = await axiosInstance.post(`/bookings/checkout-wallet`);
     return res.data;
   },
+  checkoutWithdDebit: async () => {
+    const res = await axiosInstance.get(`/bookings/checkout-session`);
+    return res.data;
+  },
 
   addToCart: async (id: string | undefined) => {
     const res = await axiosInstance.post(`/tours/cart/${id}`);

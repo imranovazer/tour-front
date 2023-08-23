@@ -11,13 +11,15 @@ const MultipleImages: React.FC<{
         console.log(`current index: ${current}, prev index: ${prev}`),
     }}
   >
-    {images?.map((image, index) => (
-      <Image
-        key={index}
-        width={cwidth}
-        src={import.meta.env.VITE_TOUR_IMG_URL + image}
-      />
-    ))}
+    <div className="flex flex-col lg:flex-row">
+      {images?.map((image, index) => (
+        <Image
+          key={index}
+          width={cwidth}
+          src={import.meta.env.VITE_TOUR_IMG_URL + image}
+        />
+      ))}
+    </div>
   </Image.PreviewGroup>
 );
 

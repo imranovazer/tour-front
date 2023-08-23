@@ -13,7 +13,7 @@ interface CouruselPropsType {
 }
 
 const MyCaorusel: React.FC<CouruselPropsType> = ({ children }) => (
-  <Carousel className=" rounded-xl">{children}</Carousel>
+  <Carousel autoplay>{children}</Carousel>
 );
 // autoplay;
 

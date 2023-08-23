@@ -20,10 +20,17 @@ export const themeSlice = createSlice({
       state.theme = action.payload;
       localStorage.setItem("theme", action.payload);
     },
+    toggleTheme: (state) => {
+      if (state.theme == "dark") {
+        state.theme = "light";
+      } else {
+        state.theme = "dark";
+      }
+    },
   },
 });
 
-export const { setTheme } = themeSlice.actions;
+export const { setTheme, toggleTheme } = themeSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectTheme = (state: RootState) => state.theme.theme;

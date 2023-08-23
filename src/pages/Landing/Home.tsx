@@ -9,6 +9,7 @@ import { Tour } from "../../types";
 import { BsFlag } from "react-icons/bs";
 import { HiOutlineLocationMarker, HiOutlineCalendar } from "react-icons/hi";
 import { BsPerson } from "react-icons/bs";
+import { motion } from "framer-motion";
 import moment from "moment";
 import AuthButton from "../../components/ui/AuthButton";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,16 @@ import NewMail from "../../assets/Mail.png";
 import { useAppDispatch } from "../../redux/store/hooks";
 import { displayAlert } from "../../redux/reducers/alertSlice";
 import useLoading from "../../hooks/useLoading";
+import AnimatedSection from "./components/AnimatedSection";
+
+const cardVariants = {
+  offscreen: {
+    opacity: 0,
+  },
+  onscreen: {
+    opacity: 1,
+  },
+};
 function Home() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -53,13 +64,13 @@ function Home() {
 
   return (
     <>
-      <div className="w-full min-h-screen bg-[url(/src/assets/HeaderWhite.jpg)]  dark:bg-[url(/src/assets/HeaderDark.jpg)] bg-center bg-no-repeat bg-cover  bg-fixed">
+      <div className="HomeHeader w-full min-h-screen bg-[url(/src/assets/HeaderWhite.jpg)]  dark:bg-[url(/src/assets/HeaderDark.jpg)] bg-center bg-no-repeat bg-cover  bg-fixed">
         <div className=" container min-h-screen mx-auto flex flex-col px-16 py-[100px] gap-5 justify-around">
-          <h1 className="text-[60px]  p-1 rounded-lg  max-w-[800px] font-bold  text-sky-600 dark:text-white">
+          <h1 className="text-[60px]  p-1 rounded-lg  max-w-[800px] font-bold text-gray-950   dark:text-white">
             Tour around the world with the new destination
           </h1>
 
-          <p className="text-[20px]		text-white rounded-lg dark:text-gray-400 max-w-[500px]">
+          <p className="text-[20px]		text-gray-950 rounded-lg dark:text-gray-400 max-w-[500px]">
             We believe in a travelling experience by providing our tour plan
             that suits you best!
           </p>
@@ -76,7 +87,21 @@ function Home() {
           </h2>
           <div className="w-full flex-col md:flex-row md:flex-wrap md:grid grid-cols-2 lg:grid-cols-3 justify-items-center items-center flex justify-evenly gap-5">
             {cardData.map((card, index) => (
-              <div
+              <motion.div
+                variants={{
+                  offscreen: {
+                    opacity: 0,
+                  },
+                  onscreen: {
+                    opacity: 1,
+                    transition: {
+                      duration: index * 1,
+                    },
+                  },
+                }}
+                initial={"offscreen"}
+                whileInView={"onscreen"}
+                viewport={{ once: false, amount: 0.6 }}
                 key={index}
                 className="rounded-xl  bg-white dark:bg-slate-900 border dark:border-slate-700 p-8 shadow-xl justify-between  w-[300px] min-h-[400px] flex flex-col items-center"
               >
@@ -85,11 +110,12 @@ function Home() {
                 <p className="dark:text-white text-center">
                   {card.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
+      <AnimatedSection />
       <section className="bg-slate-200 overflow-hidden dark:bg-slate-800  ">
         <div className="TopTourSection py-16 ">
           <div
@@ -149,7 +175,7 @@ function Home() {
                             <div className=" flex gap-2 text-[30px] ">
                               <BsPerson />
                               <span className=" text-[15px]">
-                                {item.maxGroupSize} stops
+                                {item.maxGroupSize} people
                               </span>
                             </div>
                           </div>
@@ -174,12 +200,11 @@ function Home() {
       </section>
 
       <section className="w-full  dark:bg-slate-800 bg-slate-200">
-        <div className="container mx-auto py-[100px] px-5 flex flex-col items-center justify-center">
-          <div className="w-full  shadow-md bg-slate-100 max-w-[800px] h-[500px] p-5 rounded-xl dark:bg-slate-600 relative flex flex-col gap-[30px] items-center">
+        <div className="container mx-auto py-[100px] px-5 flex flex-col overflow-hidden items-center justify-center">
+          <div className="w-full  o shadow-md bg-slate-100 max-w-[800px] h-[500px] p-5 rounded-xl dark:bg-slate-600 relative flex flex-col gap-[30px] items-center">
             <img
               src={NewMail}
-              width={220}
-              className="absolute top-[-80px] right-[-60px]"
+              className="absolute w-full max-w-[220px] top-[-80px] right-[-60px]"
               alt="mail"
             />
             <h3 className="font-bold dark:text-white w-full text-[30px]">

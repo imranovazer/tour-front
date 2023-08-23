@@ -152,7 +152,7 @@ const OneTour = () => {
         </div>
       </header>
       <section className="bg-gradient-to-r text-black dark:text-white from-white to-slate-300 dark:from-slate-600 dark:to-slate-900 ">
-        <div className="container mx-auto flex">
+        <div className="container mx-auto  flex lg:flex-row flex-col items-center">
           <div className="w-1/2  flex flex-col items-center gap-2 py-[30px]">
             <h2 className="dark:text-white text-[25px]">Short information</h2>
             <ul className="short-inf flex flex-col gap-2 justify-center">

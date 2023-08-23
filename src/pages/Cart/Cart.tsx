@@ -8,7 +8,7 @@ import { displayAlert } from "../../redux/reducers/alertSlice";
 import { useNavigate } from "react-router-dom";
 import MyModal from "../../components/Modal/MyModal";
 import Logo from "../../components/ui/Logo";
-import { BiLogoVisa } from "react-icons/bi";
+import { BiLogoMastercard, BiLogoVisa } from "react-icons/bi";
 import { LiaCcVisa } from "react-icons/lia";
 
 function Cart() {
@@ -24,6 +24,18 @@ function Cart() {
     return sum;
   }, [user]);
 
+  const [checkoutDebit, checkoutDebitLoading] = useLoading({
+    callback: async () => {
+      const res = await CartApi.checkoutWithdDebit();
+
+      window.location.href = res.data.url;
+    },
+    onError: (error) => {
+      dispatch(
+        displayAlert({ type: false, title: error.response.data.message })
+      );
+    },
+  });
   const [checkoutWallet, checkoutWalletLoading] = useLoading({
     callback: async () => {
       const res = await CartApi.checkoutWithWallet();
@@ -64,12 +76,12 @@ function Cart() {
 
   return (
     <div className="pt-[100px]">
-      <div className="container mx-auto p-5 flex gap-5">
-        <div className="dark:bg-slate-700 w-full min-h-[400px] rounded-xl flex flex-col gap-5 p-5">
+      <div className="container mx-auto p-5 flex flex-col lg:flex-row gap-5">
+        <div className="dark:bg-slate-700 bg-slate-100 w-full min-h-[400px] rounded-xl flex flex-col gap-5 p-5">
           {user.cart?.map((item) => (
             <div
               key={item.product.id}
-              className="min-h-[100px] bg-slate-500 shadow-lg flex items-center justify-evenly gap-5 px-5"
+              className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex items-center justify-evenly gap-5 px-5"
             >
               <img
                 src={
@@ -88,13 +100,13 @@ function Cart() {
                 <span>{item.count}</span>
                 <div className="flex flex-col gap-2 items-center">
                   <button
-                    className="rounded-full w-[25px] h-[25px] bg-gray-700"
+                    className="rounded-full w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
                     onClick={() => addToCart(item.product.id)}
                   >
                     +
                   </button>
                   <button
-                    className="rounded-full  w-[25px] h-[25px] bg-gray-700"
+                    className="rounded-full  w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
                     onClick={() =>
                       deleteFromCart({ id: item.product.id, mode: true })
                     }
@@ -118,12 +130,12 @@ function Cart() {
             </div>
           ))}
         </div>
-        <div className="w-[400px] dark:bg-slate-700  min-h-[400px] rounded-xl flex flex-col justify-between gap-5 p-5">
+        <div className="lg:w-[400px] w-full dark:bg-slate-700 bg-slate-100  min-h-[400px] rounded-xl flex flex-col justify-between gap-5 p-5">
           <div className="flex  flex-col gap-2">
             {user.cart?.map((item) => (
               <div
                 key={item.product.id}
-                className="py-2 rounded-lg bg-slate-500 shadow-lg flex items-center justify-evenly gap-5 px-5"
+                className="py-2 rounded-lg bg-gradient-to-r from-sky-400 dark:bg-slate-500 shadow-lg flex items-center justify-evenly gap-5 px-5"
               >
                 <div className="flex flex-col gap-2 font-light dark:text-white">
                   <span className="text-[14px]">{item.product.name}</span>
@@ -156,15 +168,18 @@ function Cart() {
           <div className="flex justify-between items-center gap-3">
             <button
               onClick={checkoutWallet}
-              className="bg-black hover:bg-black/70 px-3 rounded-xl py-3 transition-all flex items-center"
+              className="bg-black hover:bg-black/70  text-white  rounded-xl w-[250px] h-[60px] transition-all flex items-center justify-center"
             >
               <Logo />
-              <span className="text-white  text-[20px] font-bold">Pay</span>
+              <span className=" text-[20px]  font-bold">Pay</span>
             </button>
             <button
-              onClick={checkoutWallet}
-              className="bg-black hover:bg-black/70 px-3 rounded-xl py-3 w-full transition-all flex items-center "
-            ></button>
+              onClick={checkoutDebit}
+              className="bg-black text-white text-[50px] hover:bg-black/70 w-[250px] h-[60px] rounded-xl  transition-all flex items-center  justify-center"
+            >
+              <BiLogoMastercard />
+              <BiLogoVisa />
+            </button>
           </div>
         </MyModal>
       )}

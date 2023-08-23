@@ -5,12 +5,26 @@ export interface Location {
   description: String;
   day?: Number;
 }
-
+export interface Booking {
+  _id: string;
+  products: [
+    {
+      count: number;
+      tour: Tour;
+    }
+  ];
+  user: string;
+  price: number;
+  createdAt: Date;
+  paid: boolean;
+}
 export interface Review {
   id: string;
   rating: number;
   review: string;
   user: User;
+  createdAt: Date;
+  tour: string;
 }
 export interface Tour {
   reviews: Review[];

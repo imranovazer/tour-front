@@ -10,6 +10,8 @@ import NavbarApi from "./api";
 import { logoutUser } from "../../redux/reducers/userSlice";
 import { BiSolidCart } from "react-icons/bi";
 import { Badge } from "antd";
+import { CgDarkMode } from "react-icons/cg";
+import { toggleTheme } from "../../redux/reducers/themeSlice";
 // const scrolled =
 //   "bg-white  h-14 max-w-[1300px] mx-auto rounded-[50px] flex items-center px-5 dark:bg-slate-950 shadow-xl transition-all";
 // const notscrolled =
@@ -67,7 +69,7 @@ function Navbar() {
           <div className="flex items-center gap-5 ">
             <Badge count={user.cart?.length} size="small">
               <div
-                className="w-10 h-10 flex justify-center cursor-pointer items-center text-[20px]  dark:text-white text-sky-600 border-2 rounded-full"
+                className="w-10 h-10 flex justify-center cursor-pointer items-center text-[20px]  dark:text-white text-sky-600 dark:border-white border-sky-600 border-2 rounded-full"
                 onClick={() => navigate("/cart")}
               >
                 <BiSolidCart />
@@ -116,6 +118,10 @@ function Navbar() {
                   </div>
                 </div>
               </div>
+              <li onClick={() => dispatch(toggleTheme())}>
+                <CgDarkMode />
+                <p>Theme</p>
+              </li>
               <li
                 onClick={() => {
                   navigate("/settings");
