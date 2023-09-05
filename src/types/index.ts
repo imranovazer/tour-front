@@ -50,7 +50,7 @@ export interface User {
   photo: String;
   role: String;
   _id: String;
-  wallet?: Number;
+  wallet?: number;
   cart?: Cart[];
 }
 

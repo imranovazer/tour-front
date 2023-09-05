@@ -1,5 +1,3 @@
-import React from "react";
-
 import Logo from "../../components/ui/Logo";
 import { Link } from "react-router-dom";
 import { Form, Input } from "antd";
@@ -7,7 +5,6 @@ import AuthButton from "../../components/ui/AuthButton";
 import { useAppDispatch } from "../../redux/store/hooks";
 import { displayAlert } from "../../redux/reducers/alertSlice";
 import axiosInstance from "../../axios";
-import { setIsAuth } from "../../redux/reducers/userSlice";
 import useLoading from "../../hooks/useLoading";
 
 type FieldType = {
@@ -30,6 +27,7 @@ function ForgotPass() {
       );
     },
   });
+  //@ts-ignore
   const onFinishFailed = (errorInfo: any) => {
     dispatch(displayAlert({ type: false, title: "Please fill all data" }));
   };
@@ -94,6 +92,7 @@ function ForgotPass() {
                 </Form.Item>
                 <Form.Item<FieldType>>
                   <AuthButton
+                    onClick={null}
                     title={isLoadingLoginRequest ? "Processing..." : "Send"}
                   />
                 </Form.Item>

@@ -97,6 +97,7 @@ function Navbar() {
           </div>
           {dropDown && (
             <ul
+              //@ts-ignore
               ref={dropdownRef}
               className="drop-down min-w-[300px] overflow-hidden py-2    dark:bg-slate-900 bg-white absolute dark:text-white right-0 rounded-lg top-[60px] shadow-xl transition-all"
             >

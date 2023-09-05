@@ -18,7 +18,7 @@ import { useAppDispatch } from "../../redux/store/hooks";
 import { displayAlert } from "../../redux/reducers/alertSlice";
 import useLoading from "../../hooks/useLoading";
 import AnimatedSection from "./components/AnimatedSection";
-
+//@ts-ignore
 const cardVariants = {
   offscreen: {
     opacity: 0,

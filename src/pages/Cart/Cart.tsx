@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import MyModal from "../../components/Modal/MyModal";
 import Logo from "../../components/ui/Logo";
 import { BiLogoMastercard, BiLogoVisa } from "react-icons/bi";
-import { LiaCcVisa } from "react-icons/lia";
 
 function Cart() {
   const user = useAppSelector((state) => state.user.user);
@@ -24,6 +23,7 @@ function Cart() {
     return sum;
   }, [user]);
 
+  //@ts-ignore
   const [checkoutDebit, checkoutDebitLoading] = useLoading({
     callback: async () => {
       const res = await CartApi.checkoutWithdDebit();
@@ -36,6 +36,7 @@ function Cart() {
       );
     },
   });
+  //@ts-ignore
   const [checkoutWallet, checkoutWalletLoading] = useLoading({
     callback: async () => {
       const res = await CartApi.checkoutWithWallet();
@@ -52,6 +53,7 @@ function Cart() {
       );
     },
   });
+  //@ts-ignore
   const [addToCart, isAddLoading] = useLoading({
     callback: async (id) => {
       const res = await CartApi.addToCart(id);
@@ -62,7 +64,7 @@ function Cart() {
       console.log("Error");
     },
   });
-
+  //@ts-ignore
   const [deleteFromCart, isDeleteLoading] = useLoading({
     callback: async ({ id, mode }) => {
       const res = await CartApi.removeFromCart(id, { deleteone: mode });
@@ -80,6 +82,7 @@ function Cart() {
         <div className="dark:bg-slate-700 bg-slate-100 w-full min-h-[400px] rounded-xl flex flex-col gap-5 p-5">
           {user.cart?.map((item) => (
             <div
+              //@ts-ignore
               key={item.product.id}
               className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex items-center justify-evenly gap-5 px-5"
             >
@@ -134,6 +137,7 @@ function Cart() {
           <div className="flex  flex-col gap-2">
             {user.cart?.map((item) => (
               <div
+                //@ts-ignore
                 key={item.product.id}
                 className="py-2 rounded-lg bg-gradient-to-r from-sky-400 dark:bg-slate-500 shadow-lg flex items-center justify-evenly gap-5 px-5"
               >

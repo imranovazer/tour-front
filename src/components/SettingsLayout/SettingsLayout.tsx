@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+//import { useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FiBriefcase, FiCreditCard, FiStar, FiUser } from "react-icons/fi";
 
 import "./SettingStyle.scss";
 function SettingsLayout() {
   const url = useLocation().pathname;
-  const [active, setActive] = useState();
+  //const [active, setActive] = useState();
   const navigate = useNavigate();
   return (
     <div>

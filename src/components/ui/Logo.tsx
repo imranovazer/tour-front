@@ -1,5 +1,3 @@
-import React from "react";
-
 function Logo() {
   return (
     <div className="logo flex gap-2 items-center cursor-pointer">

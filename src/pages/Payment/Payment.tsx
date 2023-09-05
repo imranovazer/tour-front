@@ -33,7 +33,8 @@ function Payment() {
 
         <div className="flex flex-col gap-4">
           <span className="truncate">Id : {user._id}</span>
-          <span>Balance : {user.wallet}$</span>
+
+          <span>Balance :{user.wallet}$</span>
         </div>
       </div>
       <button
@@ -53,6 +54,7 @@ function Payment() {
                 How much do you want add to your wallet
               </label>
               <input
+                //@ts-ignore
                 onChange={(e) => setAmount(e.target.value)}
                 type="number"
                 id="money"

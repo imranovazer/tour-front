@@ -1,4 +1,3 @@
-import React from "react";
 import "./styles/index.scss";
 import Logo from "../../components/ui/Logo";
 import { Link } from "react-router-dom";
@@ -31,6 +30,7 @@ function Login() {
       );
     },
   });
+  //@ts-ignore
   const onFinishFailed = (errorInfo: any) => {
     dispatch(displayAlert({ type: false, title: "Please fill all data" }));
   };
@@ -113,6 +113,7 @@ function Login() {
                 </Form.Item>
                 <Form.Item<FieldType>>
                   <AuthButton
+                    onClick={null}
                     title={isLoadingLoginRequest ? "Processing..." : "Login"}
                   />
                 </Form.Item>

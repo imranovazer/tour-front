@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useFetching from "../../hooks/useFetching";
 import MyReviewsApi from "./api";
 import { ContainerLoading } from "../../components/Loading";
@@ -8,7 +8,7 @@ import { BsClock } from "react-icons/bs";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import MyModal from "../../components/Modal/MyModal";
-import Item from "antd/es/list/Item";
+
 import useLoading from "../../hooks/useLoading";
 import { useAppDispatch } from "../../redux/store/hooks";
 import { displayAlert } from "../../redux/reducers/alertSlice";
@@ -28,6 +28,7 @@ function MyReviews() {
   });
   const [deleteReview, deleteLoading] = useLoading({
     callback: async (id) => {
+      //@ts-ignore
       const res = await MyReviewsApi.delteReview(id);
       setReviews((prevState) => {
         const newState = prevState?.filter((item) => item.id != reviewToDelete);

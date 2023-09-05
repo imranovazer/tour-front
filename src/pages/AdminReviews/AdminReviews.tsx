@@ -1,5 +1,3 @@
-import React from "react";
-
 function AdminReviews() {
   return <div>AdminReviews</div>;
 }

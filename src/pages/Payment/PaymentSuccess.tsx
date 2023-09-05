@@ -1,4 +1,3 @@
-import React from "react";
 import sucess from "../../assets/success.svg";
 import { useNavigate } from "react-router-dom";
 function PaymentSuccess() {
