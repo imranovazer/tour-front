@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import TourApi from "./api";
 import Loading from "../../components/Loading";
 import useFetching from "../../hooks/useFetching";
-import { Location, Review, Tour, User } from "../../types";
+import { Location, Review, Tour } from "../../types";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
-import { WebMercatorViewport } from "viewport-mercator-project";
+// import { WebMercatorViewport } from "viewport-mercator-project";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { IoLocationSharp } from "react-icons/io5";
 import { BsClock, BsFire, BsPerson } from "react-icons/bs";
@@ -56,7 +56,9 @@ const OneTour = () => {
 
   const [reviewTour, loadingReview] = useLoading({
     callback: async (id) => {
-      const res = await TourApi.reviewTour({
+      //const res =
+
+      await TourApi.reviewTour({
         tour: id,
         review: myReview,
         rating: myRate,
@@ -73,7 +75,9 @@ const OneTour = () => {
   });
   const [editRevire, edtiLoading] = useLoading({
     callback: async (id) => {
-      const res = await TourApi.updateReview(id, {
+      // const res =
+
+      await TourApi.updateReview(id, {
         review: myReview,
         rating: myRate,
       });
@@ -193,7 +197,7 @@ const OneTour = () => {
       </section>
 
       <section className="w-full h-[400px]">
-        {/* <ReactMapGl
+        <ReactMapGl
           {...viewport}
           onMove={({ viewState }) => setViewPort(viewState)}
           mapboxAccessToken={import.meta.env.VITE_MAP_BOX}
@@ -232,7 +236,7 @@ const OneTour = () => {
               <p className="text-black">{popUp.description}</p>
             </Popup>
           ) : null}
-        </ReactMapGl> */}
+        </ReactMapGl>
       </section>
       <section className="bg-gradient-to-r from-blue-600">
         <div className="container mx-auto px-5 py-16">

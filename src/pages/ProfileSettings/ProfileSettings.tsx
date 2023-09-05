@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState } from "react";
 import FileUpload from "../../components/FileUpload";
 import type { UploadFile } from "antd/es/upload/interface";

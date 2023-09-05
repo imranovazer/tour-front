@@ -20,7 +20,9 @@ import { toggleTheme } from "../../redux/reducers/themeSlice";
 function Navbar() {
   const handleLogout = async () => {
     try {
-      const res = await NavbarApi.logout();
+      //const res =
+
+      await NavbarApi.logout();
       dispatch(logoutUser());
     } catch (error) {}
   };

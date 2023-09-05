@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks";
 import { selectTheme, setTheme } from "../redux/reducers/themeSlice";
 import { BsMoonStars } from "react-icons/bs";

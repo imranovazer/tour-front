@@ -1,4 +1,3 @@
-import React from "react";
 import "./styles/index.scss";
 import Logo from "../../components/ui/Logo";
 import { Link } from "react-router-dom";
@@ -17,7 +16,7 @@ type FieldType = {
   passwordConfirm?: string;
 };
 function Register() {
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = () => {
     dispatch(displayAlert({ type: false, title: "Please fill all data" }));
   };
 
@@ -130,6 +129,7 @@ function Register() {
                 </Form.Item>
 
                 <AuthButton
+                  onClick={null}
                   title={
                     isReqisterRequstLoading ? "Processing..." : "Create account"
                   }

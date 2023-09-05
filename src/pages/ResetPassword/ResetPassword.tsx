@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Logo from "../../components/ui/Logo";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { Form, Input } from "antd";
@@ -6,7 +6,7 @@ import AuthButton from "../../components/ui/AuthButton";
 import { useAppDispatch } from "../../redux/store/hooks";
 import { displayAlert } from "../../redux/reducers/alertSlice";
 import axiosInstance from "../../axios";
-import { setIsAuth } from "../../redux/reducers/userSlice";
+
 import useLoading from "../../hooks/useLoading";
 import Loading from "../../components/Loading";
 
@@ -16,14 +16,14 @@ type FieldType = {
 };
 function ResetPassword() {
   const navigate = useNavigate();
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = () => {
     dispatch(displayAlert({ type: false, title: "Please fill all data" }));
   };
   const { token } = useParams();
   const [state, setState] = useState<boolean>();
   const [loading, setLoading] = useState(true);
 
-  const [chechkToken, checkTokenLoading] = useLoading({
+  const [chechkToken] = useLoading({
     callback: async () => {
       await axiosInstance.post(`/users/check-reset-token/${token}`);
 
@@ -120,6 +120,7 @@ function ResetPassword() {
                 </Form.Item>
 
                 <AuthButton
+                  onClick={null}
                   title={
                     isReqisterRequstLoading ? "Processing..." : "Reset password"
                   }

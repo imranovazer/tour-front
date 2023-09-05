@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store/hooks";
 import Loading from "../components/Loading";

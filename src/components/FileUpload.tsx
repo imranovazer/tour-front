@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import { Upload } from "antd";
 import type { UploadChangeParam } from "antd/es/upload";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
-import { TbUrgent } from "react-icons/tb";
+
 import ImgCrop from "antd-img-crop";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
@@ -18,9 +18,9 @@ interface fileUploadProps {
   preview?: string;
 }
 
-const FileUpload: React.FC<fileUploadProps> = ({ file, setFile, preview }) => {
+const FileUpload: React.FC<fileUploadProps> = ({ setFile, preview }) => {
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>(preview);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(preview);
 
   const handleChange: UploadProps["onChange"] = (
     info: UploadChangeParam<UploadFile>

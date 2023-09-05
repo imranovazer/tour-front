@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useFetching from "../../hooks/useFetching";
 import PurchasedToursApi from "./api";
 import { ContainerLoading } from "../../components/Loading";
 import { Booking } from "../../types";
-import { BiRightArrow } from "react-icons/bi";
+// import { BiRightArrow } from "react-icons/bi";
 import { BsClock } from "react-icons/bs";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import MyModal from "../../components/Modal/MyModal";
 import { LuHistory } from "react-icons/lu";
 import useLoading from "../../hooks/useLoading";
@@ -17,7 +17,7 @@ function PurchasedTours() {
   const dispatch = useAppDispatch();
   const [modal, setModal] = useState<boolean>(false);
   const [bookingToDelete, setBookingToDelete] = useState<string>("");
-  const navigate = useNavigate();
+
   const [bookings, setBookings] = useState<Booking[]>();
 
   const [getMyBookings, isGetLoading] = useFetching(async () => {
@@ -29,7 +29,8 @@ function PurchasedTours() {
   });
   const [deleteBooking, deleteLoading] = useLoading({
     callback: async (id) => {
-      const res = await PurchasedToursApi.deleteBooking(id);
+      // const res =
+      await PurchasedToursApi.deleteBooking(id);
       setBookings((prevState) => {
         const newState = prevState?.filter(
           (item) => item._id != bookingToDelete

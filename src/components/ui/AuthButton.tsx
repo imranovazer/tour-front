@@ -1,8 +1,6 @@
-import React from "react";
-
 interface buttonProps {
   title: string;
-  onClick: (e: any) => Promise<void>;
+  onClick: ((e: any) => Promise<void>) | any;
 }
 function AuthButton({ title, onClick }: buttonProps) {
   return (

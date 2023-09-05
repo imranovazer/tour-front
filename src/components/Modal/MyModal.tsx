@@ -1,9 +1,9 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { motion } from "framer-motion";
 
 function MyModal({
   children,
-  open,
+
   setOpen,
 }: {
   children: ReactNode;
