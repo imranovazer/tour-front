@@ -2,7 +2,7 @@ import { Alert } from "antd";
 import { useAppDispatch } from "../../../redux/store/hooks";
 import { useEffect } from "react";
 import { closeAlert } from "../../../redux/reducers/alertSlice";
-
+import { motion } from "framer-motion";
 import "./Alert.scss";
 interface MyAlertProps {
   type?: boolean;
@@ -16,17 +16,27 @@ function MyAlert({ type, title }: MyAlertProps) {
       dispatch(closeAlert());
 
       return () => clearTimeout(timeout);
-    }, 1000);
+    }, 1500);
   }, []);
 
   return (
-    <Alert
-      className="Alert fixed top-3 right-3 min-w-[250px]  z-50"
-      message={type ? "Success" : "Error"}
-      description={title}
-      type={type ? "success" : "error"}
-      showIcon
-    />
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: 100,
+      }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ type: "spring", duration: 1, bounce: 0.4 }}
+      className="fixed top-3 right-3   z-50"
+    >
+      <Alert
+        className="min-w-[250px]"
+        message={type ? "Success" : "Error"}
+        description={title}
+        type={type ? "success" : "error"}
+        showIcon
+      />
+    </motion.div>
   );
 }
 

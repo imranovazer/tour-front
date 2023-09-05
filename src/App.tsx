@@ -18,9 +18,14 @@ import PurchasedTours from "./pages/PurchasedTours/PurchasedTours";
 import Payment from "./pages/Payment/Payment";
 import PaymentSuccess from "./pages/Payment/PaymentSuccess";
 import Cart from "./pages/Cart/Cart";
+import AdminPanel from "./components/AdminPanelLayout/AdminPanel";
+import AdminTours from "./pages/AdminTours/AdminTours";
+import AdminUsers from "./pages/AdminUsers/AdminUsers";
+import AdminReviews from "./pages/AdminReviews/AdminReviews";
+
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
-
+  const user = useAppSelector((state) => state.user.user);
   useEffect(() => {
     const element = document.documentElement;
     switch (theme) {
@@ -55,6 +60,13 @@ function App() {
             <Route path="payment" element={<Payment />} />
           </Route>
         </Route>
+        {user.role === "admin" && (
+          <Route path="/dashboard" element={<AdminPanel />}>
+            <Route path="tours" element={<AdminTours />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="reviews" element={<AdminReviews />} />
+          </Route>
+        )}
       </Route>
 
       <Route element={<ProtectedRoute shouldAuth={false} />}>

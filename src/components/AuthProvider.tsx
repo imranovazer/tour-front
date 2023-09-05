@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import { useEffect, ReactNode } from "react";
 
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks";
 import { setILoading, setIsAuth, setUser } from "../redux/reducers/userSlice";
@@ -10,7 +10,7 @@ interface AuthProviderProps {
 }
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const isAuth = useAppSelector((state) => state.user.isAuth);
+  //const isAuth = useAppSelector((state) => state.user.isAuth);
   const loading = useAppSelector((state) => state.user.loading);
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
@@ -18,7 +18,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     const verify = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:3000/api/users/echo",
+          `${import.meta.env.VITE_BASE_URL}/users/echo`,
           {},
           { withCredentials: true }
         );
@@ -33,7 +33,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         if (error.response && error.response.status === 401) {
           try {
             const refreshTokenResponse = await axios.post(
-              "http://localhost:3000/api/users/refresh-token",
+              `${import.meta.env.VITE_BASE_URL}/users/refresh-token`,
               {},
               { withCredentials: true }
             );

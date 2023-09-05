@@ -64,6 +64,12 @@ function Navbar() {
             <li>
               <NavLink to="/tours">Tours</NavLink>
             </li>
+            {user.role === "admin" ? (
+              <li>
+                {" "}
+                <NavLink to="/dashboard">Dashboard</NavLink>
+              </li>
+            ) : null}
           </ul>
 
           <div className="flex items-center gap-5 ">

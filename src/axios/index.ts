@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   // baseURL : process.env.BASE_URL ,
-  baseURL: "http://localhost:3000/api",
+  baseURL: import.meta.env.VITE_BASE_URL,
   withCredentials: true,
 });
 axiosInstance.interceptors.response.use(
@@ -12,8 +12,9 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     if (error.response.status === 401) {
       try {
-        const res = await axios.post(
-          "http://localhost:3000/api/users/refresh-token",
+        //const res =
+        await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/users/refresh-token`,
           {},
           { withCredentials: true } // Send refresh token in request
         );
