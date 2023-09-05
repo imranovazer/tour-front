@@ -1,5 +1,4 @@
 import axiosInstance from "../../../axios";
-import { logoutUser } from "../../../redux/reducers/userSlice";
 
 const CartApi = {
   checkoutWithWallet: async () => {
