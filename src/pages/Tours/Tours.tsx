@@ -25,7 +25,7 @@ function Tours() {
     <div className=" dark:bg-slate-700">
       <header className="bg-[url(/src/assets/ToursLightHeader.jpg)] dark:bg-[url(/src/assets/ToursHeaderDark.jpg)] bg-cover bg-center bg-no-repeat ">
         <div className="contaier  pt-[100px] pb-16 mx-auto flex flex-col gap-6 items-center">
-          <h1 className="font-bold dark:text-white text-[55px]">
+          <h1 className="font-bold dark:text-white text-[40px] sm:text-[55px]">
             Explore tours
           </h1>
           <Searchbar dropdown={dropdown} setDropdown={setDropdown} />

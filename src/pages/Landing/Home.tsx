@@ -66,11 +66,11 @@ function Home() {
     <>
       <div className="HomeHeader w-full min-h-screen bg-[url(/src/assets/HeaderWhite.jpg)]  dark:bg-[url(/src/assets/HeaderDark.jpg)] bg-center bg-no-repeat bg-cover  bg-fixed">
         <div className=" container min-h-screen mx-auto flex flex-col px-16 py-[100px] gap-5 justify-around">
-          <h1 className="text-[60px]  p-1 rounded-lg  max-w-[800px] font-bold text-gray-950   dark:text-white">
+          <h1 className="md:text-[60px] md:text-start text-[35px] text-center  p-1 rounded-lg  max-w-[800px] font-bold text-gray-950   dark:text-white">
             Tour around the world with the new destination
           </h1>
 
-          <p className="text-[20px]		text-gray-950 rounded-lg dark:text-gray-400 max-w-[500px]">
+          <p className="md:text-[20px] text-[15px]		text-gray-950 rounded-lg dark:text-gray-400 max-w-[500px]">
             We believe in a travelling experience by providing our tour plan
             that suits you best!
           </p>
@@ -82,7 +82,7 @@ function Home() {
       </div>
       <section className="w-full  dark:bg-slate-800 bg-slate-200">
         <div className=" container mx-auto px-16 py-16 flex flex-col gap-10">
-          <h2 className="text-sky-950 dark:text-white font-bold text-3xl">
+          <h2 className="text-sky-950 dark:text-white font-bold text-[27px]  md:text-3xl">
             Why to choose us
           </h2>
           <div className="w-full flex-col md:flex-row md:flex-wrap md:grid grid-cols-2 lg:grid-cols-3 justify-items-center items-center flex justify-evenly gap-5">

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store/hooks";
 import Loading from "../components/Loading";
+import DarkModeSwitch from "../components/DarkModeSwitch";
 
 interface ProtectedRouteProps {
   shouldAuth: boolean;
@@ -21,7 +22,13 @@ function ProtectedRoute({ shouldAuth }: ProtectedRouteProps) {
     if (shouldAuth) {
       return isAuth ? <Outlet /> : <Navigate to="/login" />;
     } else if (!shouldAuth) {
-      return !isAuth ? <Outlet /> : <Navigate to="/" />;
+      return !isAuth ? (
+        <DarkModeSwitch>
+          <Outlet />
+        </DarkModeSwitch>
+      ) : (
+        <Navigate to="/" />
+      );
     }
   }
 }

@@ -29,8 +29,8 @@ export interface Review {
 export interface Tour {
   reviews: Review[];
   maxGroupSize: number;
-  id: String;
-  imageCover: String;
+  _id: string;
+  imageCover: string;
   difficulty: String;
   durationWeeks: Number;
   name: String;
@@ -49,7 +49,7 @@ export interface User {
   name: String;
   photo: String;
   role: String;
-  _id: String;
+  _id: string;
   wallet?: number;
   cart?: Cart[];
 }

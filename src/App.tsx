@@ -22,6 +22,7 @@ import AdminPanel from "./components/AdminPanelLayout/AdminPanel";
 import AdminTours from "./pages/AdminTours/AdminTours";
 import AdminUsers from "./pages/AdminUsers/AdminUsers";
 import AdminReviews from "./pages/AdminReviews/AdminReviews";
+import About from "./pages/About/About";
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -48,6 +49,7 @@ function App() {
       <Route element={<ProtectedRoute shouldAuth={true} />}>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/tours/:id" element={<Tour />} />

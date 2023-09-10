@@ -84,7 +84,7 @@ function Cart() {
             <div
               //@ts-ignore
               key={item.product.id}
-              className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex items-center justify-evenly gap-5 px-5"
+              className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex flex-col md:flex-row py-5 items-center justify-evenly gap-5 px-5"
             >
               <img
                 src={

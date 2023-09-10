@@ -12,12 +12,18 @@ import { BiSolidCart } from "react-icons/bi";
 import { Badge } from "antd";
 import { CgDarkMode } from "react-icons/cg";
 import { toggleTheme } from "../../redux/reducers/themeSlice";
+import SiderBar from "./components/SideBar";
+import { useAnimation, motion } from "framer-motion";
+
+import { HiOutlineMenu } from "react-icons/hi";
+
 // const scrolled =
 //   "bg-white  h-14 max-w-[1300px] mx-auto rounded-[50px] flex items-center px-5 dark:bg-slate-950 shadow-xl transition-all";
 // const notscrolled =
 //   "bg-transparent h-14 max-w-[1300px] mx-auto rounded-[50px] flex items-center px-5 dark:bg-transparent transition-all ";
 
 function Navbar() {
+  const [sideBar, setSideBar] = useState(false);
   const handleLogout = async () => {
     try {
       //const res =
@@ -31,6 +37,7 @@ function Navbar() {
   const user = useAppSelector((state) => state.user.user);
 
   const dispatch = useAppDispatch();
+
   const [dropDown, setDropdown] = useState<boolean>(false);
   const handleScrolledNav = () => {
     if (window.scrollY > 50) {
@@ -45,12 +52,24 @@ function Navbar() {
   }, []);
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const controls = useAnimation();
 
+  const handleButtonClick = () => {
+    setSideBar((prevState) => !prevState);
+
+    // You can adjust the rotation and opacity values as needed
+
+    const rotation = sideBar ? 0 : 180;
+
+    controls.start({
+      rotate: rotation,
+    });
+  };
   return (
     <div className="fixed top-6 w-full z-40 ">
       <div className="container  mx-auto px-3 ">
         <div
-          className={`relative h-14 max-w-[1300px] justify-between mx-auto rounded-[50px] flex items-center px-4   transition-all  ${
+          className={`relative h-14 max-w-[1300px] hidden  justify-between mx-auto rounded-[50px] md:flex items-center px-4   transition-all  ${
             isScrolled
               ? "bg-white dark:bg-slate-900 shadow-xl"
               : "bg-transparent dark:bg-transparent"
@@ -72,6 +91,9 @@ function Navbar() {
                 <NavLink to="/dashboard">Dashboard</NavLink>
               </li>
             ) : null}
+            <li>
+              <NavLink to="/about">About</NavLink>
+            </li>
           </ul>
 
           <div className="flex items-center gap-5 ">
@@ -145,7 +167,22 @@ function Navbar() {
             </ul>
           )}
         </div>
+        <div className="w-full md:hidden flex items-center justify-end">
+          <motion.button
+            onClick={handleButtonClick}
+            className="rounded-full z-50 dark:bg-slate-900 flex flex-col justify-center gap-1 items-center bg-white w-[50px] h-[50px]"
+          >
+            <motion.div
+              initial={false}
+              animate={controls}
+              className="flex justify-center items-center text-[20px] dark:text-white"
+            >
+              <HiOutlineMenu />
+            </motion.div>
+          </motion.button>
+        </div>
       </div>
+      <SiderBar open={sideBar} setOpen={setSideBar} />
     </div>
   );
 }
