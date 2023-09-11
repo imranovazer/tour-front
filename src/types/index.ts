@@ -3,7 +3,7 @@ export interface Location {
   coordinates: number[];
   address: String;
   description: String;
-  day?: Number;
+  day?: number;
 }
 export interface Booking {
   _id: string;
@@ -19,12 +19,12 @@ export interface Booking {
   paid: boolean;
 }
 export interface Review {
-  id: string;
+  _id: string;
   rating: number;
   review: string;
   user: User;
   createdAt: Date;
-  tour: string;
+  tour: Tour;
 }
 export interface Tour {
   reviews: Review[];
@@ -33,7 +33,7 @@ export interface Tour {
   imageCover: string;
   difficulty: String;
   durationWeeks: Number;
-  name: String;
+  name: string;
   price: number;
   ratingsAverage: number;
   summary: String;

@@ -132,7 +132,7 @@ const OneTour = () => {
           })`,
         }}
       >
-        <div className="w-[350px] h-full bg-white/70 flex flex-col justify-center gap-2 p-4 te text-gray-900  dark:text-white dark:bg-slate-800/70">
+        <div className="min-w-[350px] w-full sm:max-w-[500px] h-full bg-white/70 flex flex-col justify-center gap-2 p-4 te text-gray-900  dark:text-white dark:bg-slate-800/70">
           <h1 className="text-[40px] font-extrabold">{tour?.name}</h1>
 
           <p className="flex gap-1 text-[23px] items-center ">
@@ -157,7 +157,7 @@ const OneTour = () => {
       </header>
       <section className="bg-gradient-to-r text-black dark:text-white from-white to-slate-300 dark:from-slate-600 dark:to-slate-900 ">
         <div className="container mx-auto  flex lg:flex-row flex-col items-center">
-          <div className="w-1/2  flex flex-col items-center gap-2 py-[30px]">
+          <div className="sm:w-1/2  flex flex-col items-center gap-2 py-[30px]">
             <h2 className="dark:text-white text-[25px]">Short information</h2>
             <ul className="short-inf flex flex-col gap-2 justify-center">
               <li>
@@ -184,7 +184,7 @@ const OneTour = () => {
               </li>
             </ul>
           </div>
-          <div className="w-1/2  flex flex-col items-center gap-2 px-4 py-[30px]">
+          <div className="sm:w-1/2  flex flex-col items-center gap-2 px-4 py-[30px]">
             <h2 className="dark:text-white text-[25px]  font-bold">
               {tour?.name}
             </h2>
@@ -233,7 +233,8 @@ const OneTour = () => {
               latitude={popUp.coordinates[1]}
               longitude={popUp.coordinates[0]}
             >
-              <p className="text-black">{popUp.description}</p>
+              <p className="text-black">Day: {popUp.day}</p>
+              <p className="text-black">Description: {popUp.description}</p>
             </Popup>
           ) : null}
         </ReactMapGl>

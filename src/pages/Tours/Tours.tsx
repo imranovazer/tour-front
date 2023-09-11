@@ -7,8 +7,20 @@ import { ContainerLoading } from "../../components/Loading";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import useLoading from "../../hooks/useLoading";
+import { Slider } from "antd";
+import { useAppDispatch } from "../../redux/store/hooks";
+import { setUser } from "../../redux/reducers/userSlice";
+import { displayAlert } from "../../redux/reducers/alertSlice";
 
 function Tours() {
+  const dispatch = useAppDispatch();
+  const [price, setPrice] = useState<{ min: number; max: number } | null>();
+
+  const [difficulty, setDifficulty] = useState<
+    "medium" | "difficult" | "easy" | null
+  >(null);
+  const [inputText, setInputText] = useState("");
   const [tours, setTours] = useState<Tour[]>([]);
   const [dropdown, setDropdown] = useState(false);
   const navigate = useNavigate();
@@ -17,18 +29,79 @@ function Tours() {
     setTours(res.data);
     console.log("data", res.data);
   });
+  const [searchTours, searchLoading] = useLoading({
+    callback: async (param) => {
+      let query = "";
+      if (inputText) {
+        query += `name=${param}`;
+      }
+      if (difficulty) {
+        query += `&difficulty=${difficulty}`;
+      }
+      if (price) {
+        query += `&price[gte]=${price.min}&price[lte]=${price.max}`;
+      }
+      const res = await ToursListApi.getGoodTours(query);
+      setTours(res.data);
+    },
+    onError: () => {
+      console.log("Error");
+    },
+  });
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    searchTours(inputText);
+  };
+
   useEffect(() => {
     getAllTours(null);
   }, []);
-
+  const handlePrice = ([min, max]: [number, number]) => {
+    setPrice({ min, max });
+  };
+  const [addToCart, loadingCart] = useLoading({
+    callback: async (id) => {
+      const res = await ToursListApi.addToCart(id);
+      dispatch(setUser(res.data));
+      dispatch(displayAlert({ type: true, title: "Item added to cart!" }));
+    },
+    onError: () => {
+      displayAlert({ type: false, title: "Unable add to cart" });
+    },
+  });
   return (
     <div className=" dark:bg-slate-700">
       <header className="bg-[url(/src/assets/ToursLightHeader.jpg)] dark:bg-[url(/src/assets/ToursHeaderDark.jpg)] bg-cover bg-center bg-no-repeat ">
-        <div className="contaier  pt-[100px] pb-16 mx-auto flex flex-col gap-6 items-center">
+        <div className="contaier  pt-[100px] pb-16 mx-auto flex flex-col gap-6 items-center px-5">
           <h1 className="font-bold dark:text-white text-[40px] sm:text-[55px]">
             Explore tours
           </h1>
-          <Searchbar dropdown={dropdown} setDropdown={setDropdown} />
+          <Searchbar
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            searchTours={searchTours}
+            loading={searchLoading}
+            dropdown={dropdown}
+            setDropdown={setDropdown}
+            inputText={inputText}
+            setInputText={setInputText}
+            onSubmit={handleSubmit}
+          />
+          <div className="w-full max-w-[1000px]">
+            <div className="bg-white rounded-[50px] dark:text-white dark:bg-slate-700 w-full gap-3 px-3 max-w-[300px] flex items-center">
+              Price:
+              <Slider
+                onChange={handlePrice}
+                className="w-full"
+                range
+                defaultValue={[0, 20000]}
+                max={5000}
+                min={0}
+              />
+              $
+            </div>
+          </div>
         </div>
       </header>
       <div className="container pt-[100px] mx-auto flex flex-col items-center gap-10 px-10 pb-10">
@@ -50,7 +123,10 @@ function Tours() {
                       {moment(tour.startDates[0]).format("D MMM Y")}
                     </span>
                   </div>
-                  <div className="text-white  text-[18px] w-[40px] h-[40px] rounded-full bg-blue-600   dark:bg-slate-500 flex items-center justify-center cursor-pointer">
+                  <div
+                    onClick={() => addToCart(tour._id)}
+                    className="text-white  text-[18px] w-[40px] h-[40px] rounded-full bg-blue-600   dark:bg-slate-500 flex items-center justify-center cursor-pointer"
+                  >
                     <BsFillCartPlusFill />
                   </div>
                 </div>
@@ -67,7 +143,7 @@ function Tours() {
                     <span className="font-bold text-[17px]">${tour.price}</span>
                   </div>
                   <button
-                    onClick={() => navigate(`/tours/${tour.id}`)}
+                    onClick={() => navigate(`/tours/${tour._id}`)}
                     className="rounded-[30px]  px-4 hover:shadow-lg bg-blue-600 text-white flex items-center justify-center"
                   >
                     Explore

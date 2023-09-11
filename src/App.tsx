@@ -23,6 +23,8 @@ import AdminTours from "./pages/AdminTours/AdminTours";
 import AdminUsers from "./pages/AdminUsers/AdminUsers";
 import AdminReviews from "./pages/AdminReviews/AdminReviews";
 import About from "./pages/About/About";
+import AdminHome from "./pages/AdminHome";
+import PaymenFail from "./pages/Payment/PaymentFail";
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -54,6 +56,7 @@ function App() {
           <Route path="/tours" element={<Tours />} />
           <Route path="/tours/:id" element={<Tour />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-fail" element={<PaymenFail />} />
           <Route path="/settings" element={<SettingsLayout />}>
             <Route path="" element={<ProfileSettings />} />
             <Route path="account" element={<ProfileSettings />} />
@@ -64,6 +67,7 @@ function App() {
         </Route>
         {user.role === "admin" && (
           <Route path="/dashboard" element={<AdminPanel />}>
+            <Route path="" element={<AdminHome />} />
             <Route path="tours" element={<AdminTours />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="reviews" element={<AdminReviews />} />

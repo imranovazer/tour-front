@@ -65,11 +65,21 @@ function AdminTours() {
     },
   ];
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  console.log("file list", fileList);
+
   const [tourToDelete, settourToDelete] = useState("");
   const [tourToEdit, setTourToEdit] = useState<Tour | undefined | Store>(
     undefined
   );
+
+  interface Coordinate {
+    lng: number;
+    lat: number;
+    address?: string;
+    description?: string;
+    day?: number;
+    startLocation?: boolean;
+  }
+  const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
   const formRef: any = useRef();
   const dispatch = useDispatch();
   const [deleteModal, setDeleteModal] = useState(false);
@@ -83,6 +93,7 @@ function AdminTours() {
   });
   const [createTour, isCreateTourLoading] = useLoading({
     callback: async (data: FieldType) => {
+      console.log("Data", data);
       const formData = new FormData();
 
       Object.entries(data).forEach(([key, value]) => {
@@ -96,6 +107,26 @@ function AdminTours() {
         fileList.forEach((item) => {
           //@ts-ignore
           formData.append("images", item.originFileObj);
+        });
+      }
+      if (coordinates) {
+        coordinates.forEach((item) => {
+          let counter = 0;
+          if (item.startLocation) {
+            formData.append(`startLocation[coordinates][0]`, item.lng);
+            formData.append(`startLocation[coordinates][1]`, item.lat);
+            formData.append(`startLocation[description]`, item.description);
+            formData.append(`startLocation[address]`, item.address);
+          } else {
+            formData.append(`locations[${counter}][coordinates][0]`, item.lng);
+            formData.append(`locations[${counter}][coordinates][1]`, item.lat);
+            formData.append(
+              `locations[${counter}][description]`,
+              item.description
+            );
+            formData.append(`locations[${counter}][day]`, item.day);
+            counter++;
+          }
         });
       }
       const newTour = await adminToursApi.createTour(formData);
@@ -177,6 +208,26 @@ function AdminTours() {
       url: `${import.meta.env.VITE_TOUR_IMG_URL}/${image}`,
       notSend: true,
     }));
+
+    const newCoordinates: any = tour.locations.map((item) => ({
+      lat: item.coordinates[1],
+      lng: item.coordinates[0],
+      description: item.description,
+      day: item.day,
+      startLocation: false,
+    }));
+    const haha = [
+      ...newCoordinates,
+      {
+        lat: tour.startLocation.coordinates[1],
+        lng: tour.startLocation.coordinates[0],
+        description: tour.startLocation.description,
+        address: tour.startLocation.address,
+        startLocation: true,
+      },
+    ];
+    console.log("NEWCORDINATES", haha);
+    setCoordinates(haha);
     setFileList(newFileList);
 
     setTourToEdit(tour);
@@ -241,6 +292,13 @@ function AdminTours() {
     }
     return e?.fileList;
   };
+
+  const handleCoordinateDelete = (coordinate: any) => {
+    setCoordinates((prevState) => {
+      const newCoordinates = prevState.filter((item) => item !== coordinate);
+      return newCoordinates;
+    });
+  };
   return (
     <div>
       <div className="border  shadow-sm rounded-lg p-5 mb-5">
@@ -289,9 +347,16 @@ function AdminTours() {
           >
             <Form.Item<FieldType>
               name="name"
-              // rules={[
-              //   { required: true, message: "Please input your username!" },
-              // ]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input tour name!",
+                },
+                {
+                  min: 10,
+                  message: "Name should contain at least 10 character!",
+                },
+              ]}
             >
               <Input placeholder="Name" />
             </Form.Item>
@@ -389,6 +454,30 @@ function AdminTours() {
                 setFileList={setFileList}
               />
             </Form.Item>
+            <p className="font-bold text-[20px]">Pick location:</p>
+            <Form.Item>
+              <CoordinatePicker
+                coordinates={coordinates}
+                setCoordinates={setCoordinates}
+              />
+            </Form.Item>
+            <ul className="p-3 w-full rounded-lg bg-slate-200 flex flex-col items-center  gap-2 overflow-x-auto">
+              {coordinates &&
+                coordinates.map((item, index) => (
+                  <li
+                    key={index}
+                    className="w-full flex justify-between items-center gap-2 p-1 rounded bg-white"
+                  >
+                    <p className="break-keep">{item.description} </p>
+                    <div
+                      className=" rounded-full w-5 h-5 text-white bg-red-400  flex items-center justify-center p-1 cursor-pointer"
+                      onClick={() => handleCoordinateDelete(item)}
+                    >
+                      x
+                    </div>
+                  </li>
+                ))}
+            </ul>
           </Form>
         </AdminPanelModal>
       )}
