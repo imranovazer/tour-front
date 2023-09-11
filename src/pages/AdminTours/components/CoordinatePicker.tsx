@@ -27,23 +27,21 @@ function CoordinatePicker({
     formRef.current.submit();
   };
   const [viewport, setViewPort] = useState(
-    coordinates
+    coordinates.length > 0
       ? {
           longitude: coordinates[0].lng,
           latitude: coordinates[0].lat,
           zoom: 6,
         }
       : {
-          longitude: 77.216,
-          latitude: 28.6448,
+          longitude: 48.012600968680594,
+          latitude: 41.277459573738255,
           zoom: 6,
         }
   );
   const [modalMode, setModalMode] = useState<"edit" | "create" | undefined>(
     undefined
   );
-
-  const [popUp, setPopUp] = useState<Location | null | undefined | any>(null);
 
   const [cordinateToEdit, setCordinateToEdit] = useState<{}>();
   const [modal, setModal] = useState<boolean>(false);
@@ -64,7 +62,21 @@ function CoordinatePicker({
     startLocation: boolean;
   };
   const onFinish = (data: FieldType) => {
-    setCoordinates((prevState: any) => [...prevState, data]);
+    if (modalMode == "create") {
+      setCoordinates((prevState: any) => [...prevState, data]);
+    }
+    if (modalMode == "edit") {
+      setCoordinates((prevState: any) => {
+        const newData = prevState.map((item: any) => {
+          if (item.lat === data.lat && item.lng == data.lng) {
+            return data;
+          } else {
+            return item;
+          }
+        });
+        return newData;
+      });
+    }
     setModal(false);
   };
   const onFinishFailed = (err: any) => {
@@ -80,30 +92,33 @@ function CoordinatePicker({
         mapStyle={"mapbox://styles/imranovazer/cll83z2ux00np01pmcivy6uoq"}
         onClick={handleMapClick}
       >
-        {coordinates.map((item, index: any) => (
-          <Marker
-            key={index}
-            anchor="bottom"
-            longitude={item.lng}
-            latitude={item.lat}
-          >
-            <p
-              className="text-[30px] cursor-pointer text-black "
-              onClick={() => {
-                setCordinateToEdit(item);
-                setModal(true);
-              }}
+        {coordinates &&
+          coordinates.map((item, index: any) => (
+            <Marker
+              key={index}
+              anchor="bottom"
+              longitude={item.lng}
+              latitude={item.lat}
             >
-              <IoLocationSharp />
-            </p>
-          </Marker>
-        ))}
+              <p
+                className="text-[30px] cursor-pointer text-black "
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalMode("edit");
+                  setCordinateToEdit(item);
+                  setModal(true);
+                }}
+              >
+                <IoLocationSharp />
+              </p>
+            </Marker>
+          ))}
       </ReactMapGl>
       {modal && (
         <AdminPanelModal
           handleOk={triggerSubmit}
           title={
-            modalMode === "edit" ? "Pick a coordinate" : "Edit a coordinate"
+            modalMode == "edit" ? "Edit a coordinate" : "Pick a coordinate"
           }
           display={modal}
           setDisplay={setModal}

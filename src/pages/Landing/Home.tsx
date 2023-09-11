@@ -64,7 +64,7 @@ function Home() {
 
   return (
     <>
-      <div className="HomeHeader w-full min-h-screen bg-[url(/src/assets/HeaderWhite.jpg)]  dark:bg-[url(/src/assets/HeaderDark.jpg)] bg-center bg-no-repeat bg-cover  bg-fixed">
+      <div className="HomeHeader  w-full min-h-screen bg-[url(/src/assets/HeaderWhite.jpg)]  dark:bg-[url(/src/assets/HeaderDark.jpg)] bg-center bg-no-repeat bg-cover  bg-fixed">
         <div className=" container min-h-screen mx-auto flex flex-col px-16 py-[100px] gap-5 justify-around">
           <h1 className="md:text-[60px] md:text-start text-[35px] text-center  p-1 rounded-lg  max-w-[800px] font-bold text-gray-950   dark:text-white">
             Tour around the world with the new destination
@@ -75,9 +75,12 @@ function Home() {
             that suits you best!
           </p>
 
-          <button className="max-w-[120px] p-2  text-white bg-sky-700 dark:bg-orange-600 shadow-sm">
+          <a
+            href="#explore"
+            className="max-w-[120px] p-2 hover:shadow-xl  cursor-pointer text-white bg-sky-700 dark:bg-orange-600 shadow-sm"
+          >
             Explore now
-          </button>
+          </a>
         </div>
       </div>
       <section className="w-full  dark:bg-slate-800 bg-slate-200">
@@ -116,7 +119,10 @@ function Home() {
         </div>
       </section>
       <AnimatedSection />
-      <section className="bg-slate-200 overflow-hidden dark:bg-slate-800  ">
+      <section
+        className="bg-slate-200 overflow-hidden dark:bg-slate-800  "
+        id="explore"
+      >
         <div className="TopTourSection py-16 ">
           <div
             className="container px-5  mx-auto   py-16 flex flex-col gap-10 "

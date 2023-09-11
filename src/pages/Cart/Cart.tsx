@@ -80,58 +80,68 @@ function Cart() {
     <div className="pt-[100px]">
       <div className="container mx-auto p-5 flex flex-col lg:flex-row gap-5">
         <div className="dark:bg-slate-700 bg-slate-100 w-full min-h-[400px] rounded-xl flex flex-col gap-5 p-5">
-          {user.cart?.map((item) => (
-            <div
-              //@ts-ignore
-              key={item.product.id}
-              className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex flex-col md:flex-row py-5 items-center justify-evenly gap-5 px-5"
-            >
-              <img
-                src={
-                  import.meta.env.VITE_TOUR_IMG_URL + item.product.imageCover
-                }
-                className="w-[80px] h-[80px] rounded-full"
-                alt="product"
-              />
+          {
+            //@ts-ignore
+            user.cart.length > 0 ? (
+              user.cart?.map((item) => (
+                <div
+                  //@ts-ignore
+                  key={item.product.id}
+                  className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex flex-col md:flex-row py-5 items-center justify-evenly gap-5 px-5"
+                >
+                  <img
+                    src={
+                      import.meta.env.VITE_TOUR_IMG_URL +
+                      item.product.imageCover
+                    }
+                    className="w-[80px] h-[80px] rounded-full"
+                    alt="product"
+                  />
 
-              <div className="flex flex-col gap-2 font-light dark:text-white">
-                <span className="text-[20px]">{item.product.name}</span>
-                <span className="text-[13px]">Ref : {item.product.id}</span>
-              </div>
+                  <div className="flex flex-col gap-2 font-light dark:text-white">
+                    <span className="text-[20px]">{item.product.name}</span>
+                    <span className="text-[13px]">Ref : {item.product.id}</span>
+                  </div>
 
-              <div className="flex items-center gap-5 dark:text-white">
-                <span>{item.count}</span>
-                <div className="flex flex-col gap-2 items-center">
-                  <button
-                    className="rounded-full w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
-                    onClick={() => addToCart(item.product.id)}
-                  >
-                    +
-                  </button>
-                  <button
-                    className="rounded-full  w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
+                  <div className="flex items-center gap-5 dark:text-white">
+                    <span>{item.count}</span>
+                    <div className="flex flex-col gap-2 items-center">
+                      <button
+                        className="rounded-full w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
+                        onClick={() => addToCart(item.product.id)}
+                      >
+                        +
+                      </button>
+                      <button
+                        className="rounded-full  w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
+                        onClick={() =>
+                          deleteFromCart({ id: item.product.id, mode: true })
+                        }
+                      >
+                        -
+                      </button>
+                    </div>
+                  </div>
+                  <div className="dark:text-white text-[20px]">
+                    {item.count * item.product.price} USD
+                  </div>
+
+                  <div
+                    className="cursor-pointer dark:text-white text-[20px] "
                     onClick={() =>
-                      deleteFromCart({ id: item.product.id, mode: true })
+                      deleteFromCart({ id: item.product.id, mode: false })
                     }
                   >
-                    -
-                  </button>
+                    <BsFillTrashFill />
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="w-full flex items-center justify-center h-full">
+                <h1 className="text-[20px] dark:text-white"> Cart is emty</h1>
               </div>
-              <div className="dark:text-white text-[20px]">
-                {item.count * item.product.price} USD
-              </div>
-
-              <div
-                className="cursor-pointer dark:text-white text-[20px] "
-                onClick={() =>
-                  deleteFromCart({ id: item.product.id, mode: false })
-                }
-              >
-                <BsFillTrashFill />
-              </div>
-            </div>
-          ))}
+            )
+          }
         </div>
         <div className="lg:w-[400px] w-full dark:bg-slate-700 bg-slate-100  min-h-[400px] rounded-xl flex flex-col justify-between gap-5 p-5">
           <div className="flex  flex-col gap-2">

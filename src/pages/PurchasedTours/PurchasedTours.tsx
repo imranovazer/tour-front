@@ -69,7 +69,7 @@ function PurchasedTours() {
             key={booking._id}
             className="flex flex-col md:flex-row md:items-center gap-3 justify-between bg-slate-200 dark:bg-slate-600 p-4 rounded-lg "
           >
-            <div className="flex flex-col  gap-3">
+            <div className="flex flex-col   gap-3">
               <p className="max-w-[300px] truncate">
                 <span className="dark:text-sky-400 font-bold text-blue-600">
                   Purchased items :

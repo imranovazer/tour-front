@@ -110,8 +110,8 @@ function AdminTours() {
         });
       }
       if (coordinates) {
+        var counter = 0;
         coordinates.forEach((item) => {
-          let counter = 0;
           if (item.startLocation) {
             formData.append(`startLocation[coordinates][0]`, item.lng);
             formData.append(`startLocation[coordinates][1]`, item.lat);
@@ -125,7 +125,7 @@ function AdminTours() {
               item.description
             );
             formData.append(`locations[${counter}][day]`, item.day);
-            counter++;
+            counter = counter + 1;
           }
         });
       }
@@ -305,6 +305,7 @@ function AdminTours() {
         <button
           onClick={() => {
             setFileList([]);
+            setCoordinates([]);
             setModalMode("create");
             setEditModal(true);
           }}
