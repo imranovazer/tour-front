@@ -17,7 +17,7 @@ function Login() {
   const [loginRequest, isLoadingLoginRequest] = useLoading({
     callback: async (values: any) => {
       const user = await axiosInstance.post("/users/login", values);
-      console.log("user", user.data.data.user);
+
       dispatch(
         displayAlert({ type: true, title: "You logged in successfully" })
       );

@@ -21,9 +21,9 @@ function ForgotPass() {
         })
       );
     },
-    onError: () => {
+    onError: (error) => {
       dispatch(
-        displayAlert({ type: false, title: "Unable to sent email try later" })
+        displayAlert({ type: false, title: error.response.data.message })
       );
     },
   });

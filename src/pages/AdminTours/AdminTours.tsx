@@ -93,7 +93,6 @@ function AdminTours() {
   });
   const [createTour, isCreateTourLoading] = useLoading({
     callback: async (data: FieldType) => {
-      console.log("Data", data);
       const formData = new FormData();
 
       Object.entries(data).forEach(([key, value]) => {
@@ -152,8 +151,9 @@ function AdminTours() {
       const formData = new FormData();
 
       Object.entries(data).forEach(([key, value]) => {
-        if (key === "imageCover") {
+        if (key === "imageCover" && Array.isArray(value)) {
           //@ts-ignore
+
           if (value[0]) {
             //@ts-ignore
             formData.append(key, value[0].originFileObj);
@@ -175,7 +175,7 @@ function AdminTours() {
           }
         });
       }
-
+      //----------------------
       const newUser = await usersApi.editTour(id, formData);
 
       const newUsers = tours.map((tour) => {
@@ -226,7 +226,7 @@ function AdminTours() {
         startLocation: true,
       },
     ];
-    console.log("NEWCORDINATES", haha);
+
     setCoordinates(haha);
     setFileList(newFileList);
 
@@ -262,7 +262,6 @@ function AdminTours() {
   };
 
   const onFinish = (values: any) => {
-    console.log("VALUES", values);
     if (modalMode == "edit") {
       editTour({ id: tourToEdit?._id, data: values });
     } else if (modalMode == "create") {
