@@ -100,7 +100,9 @@ function Cart() {
 
                   <div className="flex flex-col gap-2 font-light dark:text-white">
                     <span className="text-[20px]">{item.product.name}</span>
-                    <span className="text-[13px]">Ref : {item.product.id}</span>
+                    <span className="text-[13px]">
+                      Ref : {item.product._id}
+                    </span>
                   </div>
 
                   <div className="flex items-center gap-5 dark:text-white">
@@ -108,14 +110,14 @@ function Cart() {
                     <div className="flex flex-col gap-2 items-center">
                       <button
                         className="rounded-full w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
-                        onClick={() => addToCart(item.product.id)}
+                        onClick={() => addToCart(item.product._id)}
                       >
                         +
                       </button>
                       <button
                         className="rounded-full  w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
                         onClick={() =>
-                          deleteFromCart({ id: item.product.id, mode: true })
+                          deleteFromCart({ id: item.product._id, mode: true })
                         }
                       >
                         -
@@ -129,7 +131,7 @@ function Cart() {
                   <div
                     className="cursor-pointer dark:text-white text-[20px] "
                     onClick={() =>
-                      deleteFromCart({ id: item.product.id, mode: false })
+                      deleteFromCart({ id: item.product._id, mode: false })
                     }
                   >
                     <BsFillTrashFill />

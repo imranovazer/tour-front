@@ -73,6 +73,7 @@ function AdminUsers() {
 
     setUsers(res.data);
   });
+  //@ts-ignore
   const [createUser, isCreateUserLoading] = useLoading({
     callback: async (data) => {
       const newUser = await usersApi.createUser(data);
@@ -93,6 +94,7 @@ function AdminUsers() {
       console.log("Error");
     },
   });
+  //@ts-ignore
   const [editUser, isEditUserLoading] = useLoading({
     callback: async ({ id, data }) => {
       const newUser = await usersApi.editUser(id, data);

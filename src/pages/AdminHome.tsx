@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 function AdminHome() {
   return (
     <div className="w-full p-10">

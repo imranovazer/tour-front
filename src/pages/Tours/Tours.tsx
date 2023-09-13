@@ -60,6 +60,7 @@ function Tours() {
   const handlePrice = ([min, max]: [number, number]) => {
     setPrice({ min, max });
   };
+  //@ts-ignore
   const [addToCart, loadingCart] = useLoading({
     callback: async (id) => {
       const res = await ToursListApi.addToCart(id);

@@ -41,7 +41,7 @@ export default function MySwiper({ slides }: { slides: Review[] | undefined }) {
         className="mySwiper"
       >
         {slides?.map((slide) => (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide._id}>
             <div className="w-full flex justify-center mb-10">
               <div className="w-[300px] min-h-[400px] text-black bg-slate-100 shadow-xl dark:bg-slate-700 p-5 rounded-xl flex flex-col  gap-5 items-center">
                 <Rate

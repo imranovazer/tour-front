@@ -31,7 +31,9 @@ function MyReviews() {
       //@ts-ignore
       const res = await MyReviewsApi.delteReview(id);
       setReviews((prevState) => {
-        const newState = prevState?.filter((item) => item.id != reviewToDelete);
+        const newState = prevState?.filter(
+          (item) => item._id != reviewToDelete
+        );
         return newState;
       });
       dispatch(
@@ -57,7 +59,7 @@ function MyReviews() {
       <div className="flex flex-col gap-4">
         {reviews?.map((review) => (
           <div
-            key={review.id}
+            key={review._id}
             className="flex flex-col md:flex-row md:items-center gap-3 justify-between bg-slate-200 dark:bg-slate-600 p-4 rounded-lg "
           >
             <div className="flex flex-col  gap-3">
@@ -77,7 +79,7 @@ function MyReviews() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
-                  setReviewToDelete(review.id);
+                  setReviewToDelete(review._id);
                   setModal(true);
                 }}
                 className="w-[80px] py-1 rounded-[30px] bg-red-600 text-white"
