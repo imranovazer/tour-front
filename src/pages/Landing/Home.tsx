@@ -191,7 +191,7 @@ function Home() {
                             </p>
                             <AuthButton
                               title="Detailed"
-                              onClick={() => navigate(`/tours/${item.id}`)}
+                              onClick={() => navigate(`/tours/${item._id}`)}
                             />
                           </div>
                         </div>

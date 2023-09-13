@@ -1,4 +1,3 @@
-import React from "react";
 import ComplanySlider from "./components/CompanySlider";
 import { intro } from "./data/data";
 import ManBag from "./data/ManBag.png";

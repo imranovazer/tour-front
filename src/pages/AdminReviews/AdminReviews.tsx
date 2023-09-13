@@ -24,7 +24,7 @@ function AdminReviews() {
       title: "Tour",
       dataIndex: "tour",
       key: "tour",
-      render: (tour: Tour) => tour.name,
+      render: (tour: Tour) => tour?.name,
       filters: tourDropdowns ? tourDropdowns : [],
       filterSearch: true,
       onFilter: (value: string, record: any) =>
@@ -34,7 +34,7 @@ function AdminReviews() {
       title: "User",
       dataIndex: "user",
       key: "user",
-      render: (user: User) => user.name,
+      render: (user: User) => user?.name,
       filters: userDropdowns ? userDropdowns : [],
       filterSearch: true,
       onFilter: (value: string, record: any) =>
@@ -91,9 +91,11 @@ function AdminReviews() {
 
     setReviews(res.data);
   });
+  //@ts-ignore
   const [getDropDowns, getDropDownLoading] = useFetching(async () => {
+    //@ts-ignore
     const [tours, users] = await AdminReviewsApi.getDropwdowns();
-    
+
     const userss = users.map((item: any) => ({
       text: item.name,
       value: item._id,
@@ -106,6 +108,7 @@ function AdminReviews() {
     setTourDropdowns(tourss);
     setUserDropdowns(userss);
   });
+  //@ts-ignore
   const [createReview, isCreateReviewLoading] = useLoading({
     callback: async (data) => {
       const newUser = await AdminReviewsApi.createReview(data);
@@ -126,6 +129,7 @@ function AdminReviews() {
       console.log("Error");
     },
   });
+  //@ts-ignore
   const [editReview, isEditReviewLoading] = useLoading({
     callback: async ({ id, data }) => {
       const newReview = await AdminReviewsApi.editReview(id, data);
@@ -219,6 +223,7 @@ function AdminReviews() {
       {getIsLoading ? (
         <ContainerLoading />
       ) : (
+        //@ts-ignore
         <Table dataSource={reviews} columns={columns} />
       )}
       {deleteModal && (

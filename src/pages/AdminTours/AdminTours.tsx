@@ -1,5 +1,5 @@
 import { Button, Form, Table, Input, Select, Upload, UploadFile } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import { InboxOutlined } from "@ant-design/icons";
 
 import { useState, useEffect, useRef } from "react";
 import { Tour, User } from "../../types";
@@ -17,8 +17,10 @@ import MulripleFileUpload from "../../components/MultipleFileUpload";
 import adminToursApi from "./api";
 import CoordinatePicker from "./components/CoordinatePicker";
 
+
 const { Option } = Select;
 function AdminTours() {
+  // const [startDate, setStartDate] = useState<any>(null);
   const columns = [
     {
       title: "Name",
@@ -91,6 +93,7 @@ function AdminTours() {
 
     setTours(res.data);
   });
+  //@ts-ignore
   const [createTour, isCreateTourLoading] = useLoading({
     callback: async (data: FieldType) => {
       const formData = new FormData();
@@ -112,17 +115,25 @@ function AdminTours() {
         var counter = 0;
         coordinates.forEach((item) => {
           if (item.startLocation) {
+            //@ts-ignore
             formData.append(`startLocation[coordinates][0]`, item.lng);
+            //@ts-ignore
             formData.append(`startLocation[coordinates][1]`, item.lat);
+            //@ts-ignore
             formData.append(`startLocation[description]`, item.description);
+            //@ts-ignore
             formData.append(`startLocation[address]`, item.address);
           } else {
+            //@ts-ignore
             formData.append(`locations[${counter}][coordinates][0]`, item.lng);
+            //@ts-ignore
             formData.append(`locations[${counter}][coordinates][1]`, item.lat);
             formData.append(
               `locations[${counter}][description]`,
+              //@ts-ignore
               item.description
             );
+            //@ts-ignore
             formData.append(`locations[${counter}][day]`, item.day);
             counter = counter + 1;
           }
@@ -146,6 +157,7 @@ function AdminTours() {
       console.log("Error");
     },
   });
+  //@ts-ignore
   const [editTour, isEditTourLoading] = useLoading({
     callback: async ({ id, data }) => {
       const formData = new FormData();
@@ -227,6 +239,8 @@ function AdminTours() {
       },
     ];
 
+    // setStartDate(moment(tour.startDates[0]));
+
     setCoordinates(haha);
     setFileList(newFileList);
 
@@ -252,6 +266,7 @@ function AdminTours() {
     },
   });
   type FieldType = {
+    // startDate?: Date;
     imageCover?: any;
     name: string;
     description: string;
@@ -418,6 +433,12 @@ function AdminTours() {
                 <Input type="number"></Input>
               </Form.Item>
             </div>
+            {/* <Form.Item label="DatePicker">
+              <DatePicker
+                value={startDate && startDate}
+                onChange={(date, dateString) => setStartDate(date)}
+              />
+            </Form.Item> */}
             <Form.Item>
               <Form.Item
                 name="imageCover"

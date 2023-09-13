@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import ReactMapGl, { Marker, Popup } from "react-map-gl";
+import { useState, useRef } from "react";
+import ReactMapGl, { Marker } from "react-map-gl";
 // import { WebMercatorViewport } from "viewport-mercator-project";
 import "mapbox-gl/dist/mapbox-gl.css";
 import AdminPanelModal from "../../../components/AdminPanelModal";
