@@ -85,6 +85,7 @@ function Cart() {
             user.cart.length > 0 ? (
               user.cart?.map((item) => (
                 <div
+                  data-test="cart-item"
                   //@ts-ignore
                   key={item.product.id}
                   className="min-h-[100px]  bg-gradient-to-r dark:from-indigo-500 from-sky-500 dark:from-10% dark:via-sky-500 dark:via-30%  to-90% shadow-lg flex flex-col md:flex-row py-5 items-center justify-evenly gap-5 px-5"
@@ -109,12 +110,14 @@ function Cart() {
                     <span>{item.count}</span>
                     <div className="flex flex-col gap-2 items-center">
                       <button
+                        data-test="cart-add-button"
                         className="rounded-full w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
                         onClick={() => addToCart(item.product._id)}
                       >
                         +
                       </button>
                       <button
+                        data-test="cart-remove-item-button"
                         className="rounded-full  w-[25px] h-[25px] bg-blue-600 text-white dark:bg-gray-700"
                         onClick={() =>
                           deleteFromCart({ id: item.product._id, mode: true })
@@ -129,6 +132,7 @@ function Cart() {
                   </div>
 
                   <div
+                    data-test="cart-clear-button"
                     className="cursor-pointer dark:text-white text-[20px] "
                     onClick={() =>
                       deleteFromCart({ id: item.product._id, mode: false })
@@ -140,7 +144,7 @@ function Cart() {
               ))
             ) : (
               <div className="w-full flex items-center justify-center h-full">
-                <h1 className="text-[20px] dark:text-white"> Cart is emty</h1>
+                <h1 className="text-[20px] dark:text-white"> Cart is empty</h1>
               </div>
             )
           }

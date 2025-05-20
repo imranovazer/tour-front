@@ -22,6 +22,7 @@ function DarkModeSwitch({ children }: DarkModeSwithProps) {
     <>
       {children}
       <button
+        data-test="dark-mode-switch"
         className="w-12 h-12 rounded-full bg-white dark:bg-black fixed bottom-4 right-4 shadow-lg flex justify-center items-center "
         onClick={handleClick}
       >

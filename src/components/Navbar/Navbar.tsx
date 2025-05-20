@@ -80,25 +80,34 @@ function Navbar() {
               <Logo />
             </li>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/" data-test="nav-home">
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/tours">Tours</NavLink>
+              <NavLink to="/tours" data-test="nav-tours">
+                Tours
+              </NavLink>
             </li>
             {user.role === "admin" ? (
               <li>
                 {" "}
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/dashboard" data-test="nav-dashboard">
+                  Dashboard
+                </NavLink>
               </li>
             ) : null}
             <li>
-              <NavLink to="/about">About</NavLink>
+              <NavLink to="/about" data-test="nav-about">
+                About
+              </NavLink>
             </li>
           </ul>
 
           <div className="flex items-center gap-5 ">
             <Badge count={user.cart?.length} size="small">
               <div
+                data-test="nav-cart"
                 className="w-10 h-10 flex justify-center cursor-pointer items-center text-[20px]  dark:text-white text-sky-600 dark:border-white border-sky-600 border-2 rounded-full"
                 onClick={() => navigate("/cart")}
               >

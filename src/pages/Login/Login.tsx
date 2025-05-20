@@ -8,6 +8,7 @@ import { displayAlert } from "../../redux/reducers/alertSlice";
 import axiosInstance from "../../axios";
 import { setIsAuth, setUser } from "../../redux/reducers/userSlice";
 import useLoading from "../../hooks/useLoading";
+import { useEffect } from "react";
 
 type FieldType = {
   email?: string;
@@ -42,7 +43,10 @@ function Login() {
   return (
     <div className="w-full min-h-screen  bg-slate-200  dark:bg-slate-700">
       <div className="container flex justify-center items-center min-h-screen mx-auto px-3">
-        <div className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center ">
+        <div
+          data-test="login-background"
+          className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center "
+        >
           <div className="hidden clipLog w-1/2 bg-[url('/src/assets/Register.jpg')] dark:bg-[url('/src/assets/RegisterDark.jpg')] bg-cover bg-no-repeat md:block  "></div>
           <div className="flex md:w-1/2 w-full    p-6 flex-col   gap-12">
             <div className="w-full flex justify-between items-center">
@@ -55,7 +59,10 @@ function Login() {
               <span className="uppercase font-bold text-gray-400">
                 Continue where you left{" "}
               </span>
-              <h1 className="font-bold text-4xl dark:text-white">
+              <h1
+                data-test="login-title"
+                className="font-bold text-4xl dark:text-white"
+              >
                 Sign in please <span className="text-sky-500 text-5xl">.</span>
               </h1>
               <span className="  text-gray-400">
@@ -64,6 +71,7 @@ function Login() {
                   Register
                 </Link>{" "}
               </span>
+
               <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -75,6 +83,7 @@ function Login() {
                 autoComplete="off"
               >
                 <Form.Item<FieldType> // label="Username"
+                  data-test="login-email-input"
                   name="email"
                   rules={[
                     { required: true, message: "Please input your email!" },
@@ -91,6 +100,7 @@ function Login() {
 
                 <Form.Item<FieldType>
                   // label="Password"
+                  data-test="login-password-input"
                   name="password"
                   rules={[
                     { required: true, message: "Please input your password!" },
@@ -111,7 +121,7 @@ function Login() {
                     </Link>
                   </span>
                 </Form.Item>
-                <Form.Item<FieldType>>
+                <Form.Item<FieldType> data-test="login-submit">
                   <AuthButton
                     onClick={null}
                     title={isLoadingLoginRequest ? "Processing..." : "Login"}

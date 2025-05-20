@@ -213,7 +213,10 @@ function Home() {
               className="absolute w-full max-w-[220px] top-[-80px] right-[-60px]"
               alt="mail"
             />
-            <h3 className="font-bold dark:text-white w-full text-[30px]">
+            <h3
+              // data-test="contact-us"
+              className="font-bold dark:text-white w-full text-[30px]"
+            >
               Contact us
             </h3>
 
@@ -240,6 +243,7 @@ function Home() {
                     </svg>
                   </div>
                   <input
+                    data-test="send-email-email-input"
                     onChange={(e) => setFrom(e.target.value)}
                     type="text"
                     id="input-group-1"
@@ -256,6 +260,7 @@ function Home() {
                   Your message
                 </label>
                 <textarea
+                  data-test="send-email-message-input"
                   onChange={(e) => setContent(e.target.value)}
                   id="message"
                   rows={8}
@@ -263,7 +268,10 @@ function Home() {
                   placeholder="Write your thoughts here..."
                 ></textarea>
               </div>
-              <div className="my-5 flex justify-end">
+              <div
+                data-test="send-email-button"
+                className="my-5 flex justify-end"
+              >
                 <AuthButton
                   onClick={handleMailSend}
                   title={loadingMail ? "processing..." : "Send"}

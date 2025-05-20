@@ -125,6 +125,7 @@ function Tours() {
                     </span>
                   </div>
                   <div
+                    data-test={`tour-add-to-cart`}
                     onClick={() => addToCart(tour._id)}
                     className="text-white  text-[18px] w-[40px] h-[40px] rounded-full bg-blue-600   dark:bg-slate-500 flex items-center justify-center cursor-pointer"
                   >

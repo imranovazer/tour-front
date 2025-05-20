@@ -17,7 +17,6 @@ import MulripleFileUpload from "../../components/MultipleFileUpload";
 import adminToursApi from "./api";
 import CoordinatePicker from "./components/CoordinatePicker";
 
-
 const { Option } = Select;
 function AdminTours() {
   // const [startDate, setStartDate] = useState<any>(null);
@@ -57,6 +56,7 @@ function AdminTours() {
       key: "delete",
       render: (tour: Tour) => (
         <Button
+          data-test="tour-delete-button"
           type="primary"
           danger
           onClick={() => handleTourDeleteClick(tour._id)}
@@ -154,7 +154,6 @@ function AdminTours() {
     },
     onError: () => {
       dispatch(displayAlert({ type: false, title: "Unable to create tour" }));
-      console.log("Error");
     },
   });
   //@ts-ignore
@@ -317,6 +316,7 @@ function AdminTours() {
     <div>
       <div className="border  shadow-sm rounded-lg p-5 mb-5">
         <button
+          data-test="create-tour-button"
           onClick={() => {
             setFileList([]);
             setCoordinates([]);
@@ -361,6 +361,7 @@ function AdminTours() {
             autoComplete="off"
           >
             <Form.Item<FieldType>
+              data-test="tour-name"
               name="name"
               rules={[
                 {
@@ -377,6 +378,7 @@ function AdminTours() {
             </Form.Item>
             <Form.Item<FieldType>
               name="summary"
+              data-test="tour-summary"
               // rules={[
               //   { required: true, message: "Please input your username!" },
               // ]}
@@ -385,6 +387,7 @@ function AdminTours() {
             </Form.Item>
             <div className="flex gap-2 justify-between">
               <Form.Item<FieldType>
+                data-test="tour-maxGroupSize"
                 name="maxGroupSize"
                 label="Group size"
                 // rules={[
@@ -394,6 +397,7 @@ function AdminTours() {
                 <Input placeholder="Max group size" type="number" />
               </Form.Item>
               <Form.Item<FieldType>
+                data-test="tour-price"
                 name="price"
                 label="Price"
                 // rules={[
@@ -404,13 +408,14 @@ function AdminTours() {
               </Form.Item>
             </div>
 
-            <Form.Item name="description">
+            <Form.Item name="description" data-test="tour-description">
               <TextArea rows={4} placeholder="Description" />
             </Form.Item>
             <div className="flex gap-2 justify-between">
               <Form.Item
                 name="difficulty"
                 label="Dificulty"
+                data-test="tour-difficulty"
 
                 // rules={[{ required: true }]}
               >
@@ -420,14 +425,16 @@ function AdminTours() {
                   allowClear
                 >
                   <Option value="easy">Easy</Option>
-                  <Option value="medium">Medium</Option>
+                  <Option data-test="tour-medium-option" value="medium">
+                    Medium
+                  </Option>
                   <Option value="difficult">Difficulty</Option>
                 </Select>
               </Form.Item>
               <Form.Item
                 name="duration"
                 label="Duration"
-
+                data-test="tour-duration"
                 // rules={[{ required: true }]}
               >
                 <Input type="number"></Input>

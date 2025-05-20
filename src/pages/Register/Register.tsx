@@ -41,7 +41,10 @@ function Register() {
   return (
     <div className="w-full min-h-screen  bg-slate-200  dark:bg-slate-700">
       <div className="container flex justify-center items-center min-h-screen mx-auto px-3">
-        <div className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center ">
+        <div
+          data-test="register-background"
+          className=" bg-white dark:bg-slate-950 w-full  max-w-[1000px] min-h-[600px]    rounded-3xl shadow-lg   overflow-hidden flex justify-center "
+        >
           <div className="flex md:w-1/2 w-full    p-6 flex-col justify-between  ">
             <div className="w-full flex justify-between items-center">
               <Logo />
@@ -53,7 +56,10 @@ function Register() {
               <span className="uppercase font-bold text-gray-400">
                 Start for free{" "}
               </span>
-              <h1 className="font-bold text-4xl dark:text-white">
+              <h1
+                data-test="register-title"
+                className="font-bold text-4xl dark:text-white"
+              >
                 Create new account{" "}
                 <span className="text-sky-500 text-5xl">.</span>
               </h1>
@@ -74,6 +80,7 @@ function Register() {
                 autoComplete="off"
               >
                 <Form.Item<FieldType> // label="Username"
+                  data-test="register-name-input"
                   name="name"
                   rules={[
                     { required: true, message: "Please input your username!" },
@@ -87,6 +94,7 @@ function Register() {
                 </Form.Item>
                 <Form.Item<FieldType> // label="Username"
                   name="email"
+                  data-test="register-email-input"
                   rules={[
                     { required: true, message: "Please input your email!" },
                   ]}
@@ -102,6 +110,7 @@ function Register() {
 
                 <Form.Item<FieldType>
                   // label="Password"
+                  data-test="register-password-input"
                   name="password"
                   rules={[
                     { required: true, message: "Please input your password!" },
@@ -116,6 +125,7 @@ function Register() {
                 </Form.Item>
                 <Form.Item<FieldType>
                   // label="Password"
+                  data-test="register-passwordConfirm-input"
                   name="passwordConfirm"
                   rules={[
                     { required: true, message: "Please input your password!" },
@@ -128,12 +138,16 @@ function Register() {
                   />
                 </Form.Item>
 
-                <AuthButton
-                  onClick={null}
-                  title={
-                    isReqisterRequstLoading ? "Processing..." : "Create account"
-                  }
-                />
+                <Form.Item<FieldType> data-test="register-submit">
+                  <AuthButton
+                    onClick={null}
+                    title={
+                      isReqisterRequstLoading
+                        ? "Processing..."
+                        : "Create account"
+                    }
+                  />
+                </Form.Item>
               </Form>
             </div>
           </div>
